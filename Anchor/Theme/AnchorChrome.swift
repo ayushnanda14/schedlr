@@ -242,21 +242,29 @@ enum AnchorTheme {
         UINavigationBar.appearance().compactScrollEdgeAppearance = nav
         UINavigationBar.appearance().tintColor = brand
 
-        let tab = UITabBarAppearance()
-        tab.configureWithOpaqueBackground()
-        tab.backgroundEffect = nil
-        tab.backgroundColor = background
-        tab.shadowColor = AnchorColor.uiBorder
-        applyTabItemColors(tab.stackedLayoutAppearance, brand: brand, secondary: secondary)
-        applyTabItemColors(tab.inlineLayoutAppearance, brand: brand, secondary: secondary)
-        applyTabItemColors(tab.compactInlineLayoutAppearance, brand: brand, secondary: secondary)
-        UITabBar.appearance().standardAppearance = tab
-        UITabBar.appearance().scrollEdgeAppearance = tab
-        UITabBar.appearance().isTranslucent = false
-        UITabBar.appearance().barTintColor = background
-        UITabBar.appearance().backgroundColor = background
-        UITabBar.appearance().tintColor = brand
-        UITabBar.appearance().unselectedItemTintColor = secondary
+        if #available(iOS 26.0, *) {
+                // Don't fight the Liquid Glass tab bar with legacy UITabBarAppearance.
+                // Let SwiftUI's .tint() + .toolbarBackground(_:for:.tabBar) (already
+                // applied via anchorTabRoot()) drive tab bar color instead.
+//                UITabBar.appearance().tintColor = brand
+//                UITabBar.appearance().unselectedItemTintColor = secondary
+            } else {
+                let tab = UITabBarAppearance()
+                tab.configureWithOpaqueBackground()
+                tab.backgroundEffect = nil
+                tab.backgroundColor = background
+                tab.shadowColor = AnchorColor.uiBorder
+                applyTabItemColors(tab.stackedLayoutAppearance, brand: brand, secondary: secondary)
+                applyTabItemColors(tab.inlineLayoutAppearance, brand: brand, secondary: secondary)
+                applyTabItemColors(tab.compactInlineLayoutAppearance, brand: brand, secondary: secondary)
+                UITabBar.appearance().standardAppearance = tab
+                UITabBar.appearance().scrollEdgeAppearance = tab
+                UITabBar.appearance().isTranslucent = false
+                UITabBar.appearance().barTintColor = background
+                UITabBar.appearance().backgroundColor = background
+                UITabBar.appearance().tintColor = brand
+                UITabBar.appearance().unselectedItemTintColor = secondary
+            }
 
         UISegmentedControl.appearance().selectedSegmentTintColor = surface
         UISegmentedControl.appearance().backgroundColor = muted
