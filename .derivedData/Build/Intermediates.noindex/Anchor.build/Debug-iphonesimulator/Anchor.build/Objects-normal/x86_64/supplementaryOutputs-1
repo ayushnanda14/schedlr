@@ -1,0 +1,51 @@
+{
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/AnchorApp.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorApp.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorApp.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorApp.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorApp.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorApp.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/ContentView.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ContentView.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ContentView.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ContentView.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ContentView.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Domain/AnchorClock.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorClock.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorClock.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorClock.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorClock.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorClock.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Models/AnchorSchema.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorSchema.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorSchema.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorSchema.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorSchema.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/AnchorSchema.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Models/CompletionEvents.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/CompletionEvents.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/CompletionEvents.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/CompletionEvents.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/CompletionEvents.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/CompletionEvents.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Utilities/Calendar+Day.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Calendar+Day.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Calendar+Day.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Calendar+Day.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Calendar+Day.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Calendar+Day.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Views/Components/CompactGymLogger.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/CompactGymLogger.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/CompactGymLogger.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/CompactGymLogger.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/CompactGymLogger.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/CompactGymLogger.swiftdeps"
+  }
+}

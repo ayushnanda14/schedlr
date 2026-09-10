@@ -1,0 +1,51 @@
+{
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Models/DailyChecklistItem.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DailyChecklistItem.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DailyChecklistItem.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DailyChecklistItem.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DailyChecklistItem.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DailyChecklistItem.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Models/Enums.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Enums.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Enums.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Enums.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Enums.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Enums.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Models/Exercise.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Exercise.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Exercise.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Exercise.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Exercise.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/Exercise.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Services/DataStore.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DataStore.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DataStore.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DataStore.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DataStore.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DataStore.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Utilities/DayScopedFlag.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DayScopedFlag.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DayScopedFlag.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DayScopedFlag.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DayScopedFlag.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/DayScopedFlag.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Views/Workout/ExerciseHistoryView.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ExerciseHistoryView.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ExerciseHistoryView.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ExerciseHistoryView.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ExerciseHistoryView.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ExerciseHistoryView.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Views/Workout/ExerciseLogCard.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ExerciseLogCard.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ExerciseLogCard.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ExerciseLogCard.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ExerciseLogCard.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/x86_64/ExerciseLogCard.swiftdeps"
+  }
+}

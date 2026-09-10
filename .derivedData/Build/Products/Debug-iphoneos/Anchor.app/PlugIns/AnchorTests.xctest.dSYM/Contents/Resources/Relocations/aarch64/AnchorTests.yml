@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Products/Debug-iphoneos/Anchor.app/PlugIns/AnchorTests.xctest/AnchorTests'
+relocations:     []
+...

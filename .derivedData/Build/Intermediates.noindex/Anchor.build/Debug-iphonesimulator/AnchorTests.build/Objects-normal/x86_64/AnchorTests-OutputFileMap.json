@@ -1,0 +1,39 @@
+{
+  "" : {
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/AnchorTests-primary.dia",
+    "emit-module-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/AnchorTests-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/AnchorTests-primary-emit-module.dia",
+    "pch" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/AnchorTests-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/AnchorTests-primary.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/AnchorTests/CaptureCoordinatorTests.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureCoordinatorTests.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureCoordinatorTests.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureCoordinatorTests.dia",
+    "index-unit-output-path" : "/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureCoordinatorTests.o",
+    "llvm-bc" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureCoordinatorTests.bc",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureCoordinatorTests.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureCoordinatorTests.swiftdeps",
+    "swiftmodule" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureCoordinatorTests~partial.swiftmodule"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/AnchorTests/CaptureInterpreterTests.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureInterpreterTests.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureInterpreterTests.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureInterpreterTests.dia",
+    "index-unit-output-path" : "/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureInterpreterTests.o",
+    "llvm-bc" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureInterpreterTests.bc",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureInterpreterTests.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureInterpreterTests.swiftdeps",
+    "swiftmodule" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/CaptureInterpreterTests~partial.swiftmodule"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/AnchorTests/ScheduleRepositoryTests.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/ScheduleRepositoryTests.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/ScheduleRepositoryTests.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/ScheduleRepositoryTests.dia",
+    "index-unit-output-path" : "/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/ScheduleRepositoryTests.o",
+    "llvm-bc" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/ScheduleRepositoryTests.bc",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/ScheduleRepositoryTests.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/ScheduleRepositoryTests.swiftdeps",
+    "swiftmodule" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/AnchorTests.build/Objects-normal/x86_64/ScheduleRepositoryTests~partial.swiftmodule"
+  }
+}

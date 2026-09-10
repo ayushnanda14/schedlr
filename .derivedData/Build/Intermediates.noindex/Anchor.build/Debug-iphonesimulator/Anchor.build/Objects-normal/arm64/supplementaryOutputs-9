@@ -1,0 +1,51 @@
+{
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Models/GymScheduleDay.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/GymScheduleDay.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/GymScheduleDay.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/GymScheduleDay.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/GymScheduleDay.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/GymScheduleDay.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Models/NotificationPreferences.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationPreferences.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationPreferences.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationPreferences.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationPreferences.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationPreferences.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Services/LocalSwiftDataStore.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/LocalSwiftDataStore.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/LocalSwiftDataStore.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/LocalSwiftDataStore.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/LocalSwiftDataStore.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/LocalSwiftDataStore.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Services/NotificationScheduler.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationScheduler.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationScheduler.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationScheduler.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationScheduler.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationScheduler.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Utilities/GymDay.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/GymDay.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/GymDay.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/GymDay.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/GymDay.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/GymDay.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Utilities/Haptics.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/Haptics.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/Haptics.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/Haptics.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/Haptics.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/Haptics.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Views/HistoryView.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/HistoryView.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/HistoryView.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/HistoryView.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/HistoryView.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/HistoryView.swiftdeps"
+  }
+}

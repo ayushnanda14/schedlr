@@ -1,0 +1,23 @@
+{
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Services/NotificationScheduler.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationScheduler.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationScheduler.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationScheduler.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationScheduler.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationScheduler.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Utilities/PreviewContainer.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/PreviewContainer.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/PreviewContainer.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/PreviewContainer.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/PreviewContainer.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/PreviewContainer.swiftdeps"
+  },
+  "/Users/ayushnanda/Documents/projects/schedlr/Anchor/Views/NotificationSettingsView.swift" : {
+    "const-values" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationSettingsView.swiftconstvalues",
+    "dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationSettingsView.d",
+    "diagnostics" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationSettingsView.dia",
+    "object" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationSettingsView.o",
+    "swift-dependencies" : "/Users/ayushnanda/Documents/projects/schedlr/.derivedData/Build/Intermediates.noindex/Anchor.build/Debug-iphonesimulator/Anchor.build/Objects-normal/arm64/NotificationSettingsView.swiftdeps"
+  }
+}
