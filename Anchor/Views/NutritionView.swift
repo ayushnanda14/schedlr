@@ -25,7 +25,7 @@ struct NutritionView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 14) {
                     if let profile {
                         targetsCard(profile)
                         proteinToggle
@@ -33,10 +33,14 @@ struct NutritionView: View {
                         chartCard
                     }
                 }
-                .padding()
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+                .padding(.bottom, 20)
             }
             .scrollDismissesKeyboard(.interactively)
+            .background(AnchorScreenBackground())
             .navigationTitle("Nutrition")
+            .anchorTabRoot()
             .onAppear {
                 if let profile {
                     weightInput = String(format: "%.1f", profile.weightKg)
@@ -48,7 +52,8 @@ struct NutritionView: View {
     private func targetsCard(_ profile: UserProfile) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Today's targets")
-                .font(.headline)
+                .font(AnchorFont.title)
+                .foregroundStyle(AnchorColor.textPrimary)
 
             HStack {
                 targetTile(
@@ -61,20 +66,19 @@ struct NutritionView: View {
                 )
             }
         }
-        .padding()
+        .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .anchorSurface(.hero)
     }
 
     private func targetTile(title: String, value: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
-                .font(.caption)
-                .foregroundStyle(.secondary)
+                .font(AnchorFont.caption)
+                .foregroundStyle(AnchorColor.textSecondary)
             Text(value)
-                .font(.title2)
-                .fontWeight(.semibold)
+                .font(AnchorFont.heading)
+                .foregroundStyle(AnchorColor.textPrimary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -96,38 +100,39 @@ struct NutritionView: View {
     private func weightCard(_ profile: UserProfile) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Weight")
-                .font(.headline)
+                .font(AnchorFont.title)
+                .foregroundStyle(AnchorColor.textPrimary)
             Text("Log a weekly weigh-in. This also updates your protein and calorie targets.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
+                .font(AnchorFont.caption)
+                .foregroundStyle(AnchorColor.textSecondary)
 
             HStack {
                 TextField("kg", text: $weightInput)
                     .keyboardType(.decimalPad)
-                    .textFieldStyle(.roundedBorder)
+                    .anchorField()
                 Text("kg")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AnchorColor.textSecondary)
                 Button("Save") { saveWeight(profile: profile) }
                     .buttonStyle(.borderedProminent)
                     .disabled(parsedWeight == nil)
             }
         }
-        .padding()
+        .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .anchorSurface(.raised)
     }
 
     @ViewBuilder
     private var chartCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Trend")
-                .font(.headline)
+                .font(AnchorFont.title)
+                .foregroundStyle(AnchorColor.textPrimary)
 
             if recentEntries.count < 2 {
                 Text("Log at least two weigh-ins to see a trend.")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .font(AnchorFont.subheadline)
+                    .foregroundStyle(AnchorColor.textSecondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.vertical, 24)
             } else {
@@ -137,19 +142,20 @@ struct NutritionView: View {
                         y: .value("kg", entry.weightKg)
                     )
                     .interpolationMethod(.catmullRom)
+                    .foregroundStyle(AnchorColor.brand)
                     PointMark(
                         x: .value("Date", entry.date),
                         y: .value("kg", entry.weightKg)
                     )
+                    .foregroundStyle(AnchorColor.brandDeep)
                 }
                 .chartYAxisLabel("kg")
                 .frame(height: 200)
             }
         }
-        .padding()
+        .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .anchorSurface(.raised)
     }
 
     private var parsedWeight: Double? {

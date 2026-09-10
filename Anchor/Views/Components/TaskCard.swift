@@ -16,83 +16,85 @@ struct TaskCard: View {
     var isSevere: Bool = false
     var action: () -> Void
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
         Button {
             Haptics.light()
-            withAnimation(.easeInOut(duration: 0.18)) {
+            withAnimation(AnchorMotion.snappy(reduceMotion)) {
                 action()
             }
         } label: {
             HStack(spacing: 12) {
                 Image(systemName: icon)
-                    .font(prominence == .primary ? .title3 : .body)
+                    .font(prominence == .primary ? AnchorFont.title : AnchorFont.body)
                     .foregroundStyle(iconColor)
-                    .frame(width: 24)
+                    .frame(width: 28, height: 28)
+                    .accessibilityHidden(true)
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
-                        .font(prominence == .primary ? .headline : (prominence == .compact ? .subheadline : .body))
-                        .foregroundStyle(.primary)
+                        .font(prominence == .primary ? AnchorFont.title : (prominence == .compact ? AnchorFont.subheadline : AnchorFont.bodyEmphasized))
+                        .foregroundStyle(AnchorColor.textPrimary)
                         .strikethrough(isComplete)
+                        .multilineTextAlignment(.leading)
                     if let subtitle, prominence != .compact {
                         Text(subtitle)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(AnchorFont.caption)
+                            .foregroundStyle(AnchorColor.textSecondary)
                     }
                 }
 
                 Spacer(minLength: 0)
 
                 if let trailingText {
-                    Text(trailingText)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color(.tertiarySystemFill))
-                        .clipShape(Capsule())
+                    StatusPill(text: trailingText, tone: isComplete ? .neutral : .brand)
                 }
 
                 Image(systemName: isComplete ? "checkmark.circle.fill" : "circle")
                     .font(prominence == .primary ? .title2 : .title3)
                     .foregroundStyle(checkColor)
-                    .scaleEffect(isComplete ? 1.05 : 1)
+                    .scaleEffect(isComplete && !reduceMotion ? 1.04 : 1)
+                    .accessibilityHidden(true)
             }
-            .padding(prominence == .primary ? 16 : (prominence == .compact ? 8 : 12))
+            .padding(prominence == .primary ? 12 : (prominence == .compact ? 6 : 9))
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(background)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(borderColor, lineWidth: isComplete ? 0 : 1)
-            )
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .opacity(prominence == .compact ? 0.72 : 1)
+            .frame(minHeight: 44)
+            .anchorSurface(surfaceKind)
+            .opacity(prominence == .compact ? 0.78 : 1)
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(title)
+        .accessibilityValue(accessibilityValue)
+        .accessibilityAddTraits(isComplete ? [.isButton, .isSelected] : .isButton)
+    }
+
+    private var accessibilityValue: String {
+        var parts: [String] = []
+        if isComplete { parts.append("Complete") }
+        if isSevere { parts.append("Overdue") }
+        if let subtitle { parts.append(subtitle) }
+        if let trailingText { parts.append(trailingText) }
+        return parts.joined(separator: ", ")
+    }
+
+    private var surfaceKind: AnchorSurfaceKind {
+        if isSevere && !isComplete { return .raised }
+        if prominence == .primary { return .hero }
+        if prominence == .compact { return .inset }
+        return .raised
     }
 
     private var iconColor: Color {
-        if isComplete { return Color.secondary }
-        if isSevere { return .orange }
-        return Color.primary
+        if isComplete { return AnchorColor.textSecondary }
+        if isSevere { return AnchorColor.accentAttention }
+        return AnchorColor.brand
     }
 
     private var checkColor: Color {
-        if isComplete { return .green }
-        if isSevere { return .orange }
-        return .secondary
-    }
-
-    private var background: Color {
-        if isSevere && !isComplete { return Color.orange.opacity(0.12) }
-        if prominence == .primary { return Color(.secondarySystemBackground) }
-        if prominence == .compact { return Color(.tertiarySystemFill).opacity(0.4) }
-        return Color(.secondarySystemBackground)
-    }
-
-    private var borderColor: Color {
-        if isSevere && !isComplete { return Color.orange.opacity(0.45) }
-        return Color(.tertiarySystemFill)
+        if isComplete { return AnchorColor.brand }
+        if isSevere { return AnchorColor.accentAttention }
+        return AnchorColor.textSecondary
     }
 }
 

@@ -23,6 +23,13 @@ enum AnchorSchema {
             DayException.self,
             NotificationEvent.self,
             ActionEvent.self,
+            RoutineStep.self,
+            RoutineCompletionEvent.self,
+            ActivityCompletionEvent.self,
+            RoutineSuggestionRecord.self,
+            SuggestionResponseEvent.self,
+            LearnedPreference.self,
+            SuggestionPreferences.self,
         ])
     }
 }

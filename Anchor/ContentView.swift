@@ -31,6 +31,8 @@ struct ContentView: View {
                     Label("Skincare", systemImage: "drop")
                 }
         }
+        .tint(AnchorColor.brand)
+        .anchorTabViewChrome()
         .sheet(isPresented: $showSettings) {
             SettingsView()
         }

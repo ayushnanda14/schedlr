@@ -27,6 +27,12 @@ final class UndoCoordinator {
             _ = try? ProposalCoordinator(repository: store, clock: store.clock).undo(proposal)
         case .scheduleShift(let item, let beforeStart, let beforeEnd):
             restore(item: item, start: beforeStart, end: beforeEnd, store: store)
+        case .routineStep(let stepID):
+            store.undoRoutineCompletion(stepID: stepID)
+        case .activityEvent(let eventID):
+            store.undoActivityEvent(id: eventID)
+        case .learnedPreference(let suggestionID):
+            SuggestionCoordinator(store: store).undoAccept(suggestionID: suggestionID)
         }
         self.token = nil
     }

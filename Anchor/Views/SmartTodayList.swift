@@ -26,7 +26,7 @@ struct SmartTodayList: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 12) {
             if profile.currentMode == .away {
                 awayList
             } else {
@@ -42,9 +42,7 @@ struct SmartTodayList: View {
 
     private var houseSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Also today")
-                .font(.headline)
-                .foregroundStyle(.secondary)
+            AnchorSectionLabel(title: "Also today")
             ForEach(dueTasks, id: \.persistentModelID) { task in
                 TaskCard(
                     icon: "house",
@@ -70,9 +68,7 @@ struct SmartTodayList: View {
 
     private var windowSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(TodayGrouping.inWindow(period).rawValue)
-                .font(.headline)
-                .foregroundStyle(.secondary)
+            AnchorSectionLabel(title: TodayGrouping.inWindow(period).rawValue)
 
             if let primaryItem {
                 itemCard(primaryItem, prominence: .primary)
@@ -95,8 +91,8 @@ struct SmartTodayList: View {
                     }
                 }
             }
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
+            .font(AnchorFont.section)
+            .foregroundStyle(AnchorColor.textPrimary)
         }
     }
 
@@ -111,8 +107,8 @@ struct SmartTodayList: View {
                     }
                 }
             }
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
+            .font(AnchorFont.section)
+            .foregroundStyle(AnchorColor.textPrimary)
         }
     }
 

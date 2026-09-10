@@ -37,7 +37,7 @@ struct WorkoutView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 12) {
                     header
                     if profile?.currentMode == .away {
                         awayNote
@@ -63,10 +63,14 @@ struct WorkoutView: View {
                         sessionNotes
                     }
                 }
-                .padding()
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+                .padding(.bottom, 12)
             }
             .scrollDismissesKeyboard(.interactively)
+            .background(AnchorScreenBackground())
             .navigationTitle("Workout")
+            .anchorTabRoot()
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
@@ -79,11 +83,13 @@ struct WorkoutView: View {
                         split: activeSplit,
                         exercises: todayExercises,
                         sessions: sessions,
+                        showsChrome: false,
                         onEnsureSession: ensureTodaySession
                     )
-                    .padding(.horizontal)
+                    .padding(.horizontal, 16)
                     .padding(.top, 8)
-                    .background(.bar)
+                    .padding(.bottom, 8)
+                    .background(AnchorColor.surface)
                 }
             }
             .onAppear { syncNotes() }
@@ -98,16 +104,16 @@ struct WorkoutView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(Date().formattedDayName())
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(AnchorFont.captionEmphasized)
+                        .foregroundStyle(AnchorColor.textSecondary)
                     if scheduledSplit == .rest {
                         Text("Rest day")
-                            .font(.title2)
-                            .fontWeight(.semibold)
+                            .font(AnchorFont.heading)
+                            .foregroundStyle(AnchorColor.textPrimary)
                     } else {
                         Text(scheduledSplit.displayName)
-                            .font(.title2)
-                            .fontWeight(.semibold)
+                            .font(AnchorFont.heading)
+                            .foregroundStyle(AnchorColor.textPrimary)
                     }
                 }
                 Spacer()
@@ -126,20 +132,18 @@ struct WorkoutView: View {
                 .pickerStyle(.menu)
             }
         }
-        .padding()
+        .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .anchorSurface(.hero)
     }
 
     private var awayNote: some View {
         Text("Gym reminders are paused while you're away. You can still log a session if you train.")
-            .font(.caption)
-            .foregroundStyle(.secondary)
-            .padding()
+            .font(AnchorFont.caption)
+            .foregroundStyle(AnchorColor.textSecondary)
+            .padding(12)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(.secondarySystemBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .anchorSurface(.inset)
     }
 
     private var restState: some View {
@@ -157,34 +161,34 @@ struct WorkoutView: View {
     private var deloadBanner: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Consider a deload")
-                .font(.headline)
+                .font(AnchorFont.title)
+                .foregroundStyle(AnchorColor.textPrimary)
             Text("It's been 6+ weeks since your last logged deload. A lighter week can help you keep progressing.")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .font(AnchorFont.subheadline)
+                .foregroundStyle(AnchorColor.textSecondary)
             Button("Logged a deload") {
                 markDeload()
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.small)
         }
-        .padding()
+        .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.orange.opacity(0.12))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .anchorSurface(.raised)
+        .overlay(
+            RoundedRectangle(cornerRadius: AnchorRadius.surface, style: .continuous)
+                .strokeBorder(AnchorColor.accentAttention.opacity(0.35), lineWidth: 1)
+        )
     }
 
     // MARK: - Notes
 
     private var sessionNotes: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Session notes")
-                .font(.headline)
-                .foregroundStyle(.secondary)
+            AnchorSectionLabel(title: "Session notes")
             TextField("Optional notes", text: $notesText, axis: .vertical)
                 .lineLimit(2...4)
-                .padding(10)
-                .background(Color(.secondarySystemBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .anchorField()
                 .onChange(of: notesText) { _, newValue in
                     guard todaySession != nil || !newValue.isEmpty else { return }
                     let session = todaySession ?? ensureTodaySession()

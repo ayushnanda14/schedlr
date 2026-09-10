@@ -6,6 +6,7 @@ struct CompactGymLogger: View {
     let split: SplitDay
     let exercises: [Exercise]
     let sessions: [WorkoutSession]
+    var showsChrome: Bool = true
     let onEnsureSession: () -> WorkoutSession
 
     @Environment(LocalSwiftDataStore.self) private var store
@@ -38,10 +39,11 @@ struct CompactGymLogger: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Log a set")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(AnchorFont.caption)
+                            .foregroundStyle(AnchorColor.textSecondary)
                         Text("\(target.exercise.name)  ·  set \(target.setNumber)")
-                            .font(.headline)
+                            .font(AnchorFont.title)
+                            .foregroundStyle(AnchorColor.textPrimary)
                     }
                     Spacer()
                     if let last = target.last {
@@ -56,9 +58,7 @@ struct CompactGymLogger: View {
                         TextField("kg", value: $weight, format: .number.precision(.fractionLength(0...1)))
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.center)
-                            .padding(8)
-                            .background(Color(.tertiarySystemFill))
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .anchorField()
                             .frame(width: 72)
                         Text("kg")
                             .font(.caption)
@@ -67,34 +67,32 @@ struct CompactGymLogger: View {
                     TextField(target.exercise.isRepBased ? "reps" : "secs", value: $reps, format: .number)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.center)
-                        .padding(8)
-                        .background(Color(.tertiarySystemFill))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .anchorField()
                         .frame(width: 64)
                     Text(target.exercise.isRepBased ? "reps" : "s")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Spacer()
-                    Button("Log") { log(target) }
-                        .buttonStyle(.borderedProminent)
-                        .disabled(reps <= 0)
+                    AnchorCompactActionButton(title: "Log") {
+                        log(target)
+                    }
+                    .disabled(reps <= 0)
+                    .opacity(reps <= 0 ? 0.45 : 1)
                 }
             }
-            .padding()
-            .background(Color(.secondarySystemBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .padding(showsChrome ? 16 : 0)
+            .anchorSurface(showsChrome ? .raised : .flush)
             .onAppear { prefill(target) }
             .onChange(of: "\(target.exercise.name)-\(target.setNumber)") { _, _ in
                 if let next = nextTarget { prefill(next) }
             }
         } else {
             Text("All sets logged for \(split.displayName).")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .font(AnchorFont.subheadline)
+                .foregroundStyle(AnchorColor.textSecondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-                .background(Color(.secondarySystemBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding(showsChrome ? 16 : 0)
+                .anchorSurface(showsChrome ? .raised : .flush)
         }
     }
 

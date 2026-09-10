@@ -15,8 +15,8 @@ struct HistoryView: View {
                 filterChips
                 if entries.isEmpty {
                     Text("Nothing logged yet.")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(AnchorFont.subheadline)
+                        .foregroundStyle(AnchorColor.textSecondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.vertical, 24)
                 } else {
@@ -27,22 +27,24 @@ struct HistoryView: View {
                     }
                 }
             }
-            .padding()
+            .padding(16)
         }
+        .background(AnchorScreenBackground())
         .navigationTitle("History")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(AnchorColor.background, for: .navigationBar)
     }
 
     private var heatmap: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Last 12 weeks")
-                .font(.headline)
+                .font(AnchorFont.title)
+                .foregroundStyle(AnchorColor.textPrimary)
             ConsistencyHeatmap(counts: store.heatmapCounts(weeks: 12))
         }
-        .padding()
+        .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .anchorSurface(.hero)
     }
 
     private var filterChips: some View {
@@ -53,12 +55,11 @@ struct HistoryView: View {
                         filter = chip
                     } label: {
                         Text(chip.displayName)
-                            .font(.caption)
-                            .fontWeight(.medium)
+                            .font(AnchorFont.captionEmphasized)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 8)
-                            .background(filter == chip ? Color.accentColor : Color(.tertiarySystemFill))
-                            .foregroundStyle(filter == chip ? Color.white : Color.primary)
+                            .background(filter == chip ? AnchorColor.brand : AnchorColor.surfaceMuted)
+                            .foregroundStyle(filter == chip ? AnchorColor.onBrand : AnchorColor.textPrimary)
                             .clipShape(Capsule())
                     }
                     .buttonStyle(.plain)
@@ -99,24 +100,22 @@ private struct HistoryRowLabel: View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: entry.systemImage)
                 .frame(width: 28)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AnchorColor.brand)
             VStack(alignment: .leading, spacing: 2) {
                 Text(entry.title)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.primary)
+                    .font(AnchorFont.subheadlineEmphasized)
+                    .foregroundStyle(AnchorColor.textPrimary)
                 Text(entry.detail)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(AnchorFont.caption)
+                    .foregroundStyle(AnchorColor.textSecondary)
             }
             Spacer()
             Text(entry.date.formatted(.relative(presentation: .named)))
-                .font(.caption)
-                .foregroundStyle(.secondary)
+                .font(AnchorFont.caption)
+                .foregroundStyle(AnchorColor.textSecondary)
         }
-        .padding()
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(14)
+        .anchorSurface(.raised)
     }
 }
 
@@ -150,13 +149,13 @@ struct ConsistencyHeatmap: View {
     }
 
     private func fill(for date: Date) -> Color {
-        if date > Date() { return Color(.tertiarySystemFill).opacity(0.3) }
+        if date > Date() { return AnchorColor.surfaceMuted.opacity(0.45) }
         let count = counts[calendar.startOfDay(for: date)] ?? 0
         switch count {
-        case 0: return Color(.tertiarySystemFill)
-        case 1: return Color.accentColor.opacity(0.28)
-        case 2, 3: return Color.accentColor.opacity(0.55)
-        default: return Color.accentColor.opacity(0.85)
+        case 0: return AnchorColor.surfaceMuted
+        case 1: return AnchorColor.brand.opacity(0.28)
+        case 2, 3: return AnchorColor.brand.opacity(0.55)
+        default: return AnchorColor.brand.opacity(0.88)
         }
     }
 }

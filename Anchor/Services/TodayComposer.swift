@@ -12,14 +12,16 @@ struct TodayComposer {
         activities: [Activity],
         planTasks: [PlanTask],
         timeBlocks: [TimeBlock],
-        exceptions: [DayException] = []
+        exceptions: [DayException] = [],
+        completedTimeBlockIDs: Set<UUID> = [],
+        currentOverride: CurrentActivityOverride? = nil
     ) -> TodaySnapshot {
         let activityByID = Dictionary(activities.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
         let taskByID = Dictionary(planTasks.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
 
         let timeline = (
             timeBlocks
-                .filter { $0.startAt < $0.endAt }
+                .filter { $0.startAt < $0.endAt && !completedTimeBlockIDs.contains($0.id) }
                 .map { block in
                     mapTimelineItem(block: block, activityByID: activityByID, taskByID: taskByID)
                 }
@@ -28,9 +30,12 @@ struct TodayComposer {
             (lhs.startAt ?? .distantFuture) < (rhs.startAt ?? .distantFuture)
         }
 
-        let current = timeline.first { item in
+        var current = timeline.first { item in
             guard let start = item.startAt, let end = item.endAt else { return false }
             return now >= start && now < end
+        }
+        if let existing = current, let currentOverride {
+            current = apply(currentOverride, to: existing)
         }
         let next = timeline.first { item in
             guard let start = item.startAt else { return false }
@@ -53,6 +58,18 @@ struct TodayComposer {
             next: next,
             later: Array(laterTimed.prefix(6)) + Array(unscheduled)
         )
+    }
+
+    private func apply(_ override: CurrentActivityOverride, to item: TodayTimelineItem) -> TodayTimelineItem {
+        let matchesBlock = override.timeBlockID != nil && override.timeBlockID == item.timeBlockID
+        let matchesException = override.exceptionID != nil && override.exceptionID == item.exceptionID
+        guard matchesBlock || matchesException else { return item }
+        var updated = item
+        updated.plannedTitle = override.plannedTitle
+        updated.title = override.actualTitle
+        updated.isCorrected = true
+        updated.detail = "Planned: \(override.plannedTitle) · \(item.detail)"
+        return updated
     }
 
     private func mapTimelineItem(

@@ -22,6 +22,9 @@ struct NotificationSettingsView: View {
         }
         .navigationTitle("Notifications")
         .navigationBarTitleDisplayMode(.inline)
+        .scrollContentBackground(.hidden)
+        .background(AnchorScreenBackground())
+        .toolbarBackground(AnchorColor.background, for: .navigationBar)
         .onAppear {
             NotificationScheduler.ensurePreferences(in: modelContext)
         }

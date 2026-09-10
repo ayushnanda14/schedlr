@@ -10,13 +10,10 @@ struct SkincareView: View {
     ) private var nightLogs: [SkincareNightLog]
     @Query(filter: #Predicate<DailyChecklistItem> { $0.isDeleted == false }) private var checklistItems: [DailyChecklistItem]
     @Query(filter: #Predicate<UserProfile> { $0.isDeleted == false }) private var profiles: [UserProfile]
-
-    @State private var amCleanser = false
-    @State private var amVitaminC = false
-    @State private var amMoisturizer = false
-    @State private var amSunscreen = false
-    @State private var pmCleanser = false
-    @State private var pmMoisturizer = false
+    @Query(
+        filter: #Predicate<RoutineStep> { $0.isDeleted == false },
+        sort: \RoutineStep.sortIndex
+    ) private var routineSteps: [RoutineStep]
 
     private var tonightLog: SkincareNightLog? {
         nightLogs.first { Calendar.current.isDateInToday($0.date) }
@@ -42,46 +39,58 @@ struct SkincareView: View {
         return last.needsSpacing && last == selectedActive
     }
 
+    private var morningSteps: [RoutineStep] {
+        routineSteps.filter { $0.category == .skincareAM }
+    }
+
+    private var eveningSteps: [RoutineStep] {
+        routineSteps.filter { $0.category == .skincarePM }
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 14) {
                     amSection
                     pmSection
                 }
-                .padding()
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+                .padding(.bottom, 20)
             }
+            .background(AnchorScreenBackground())
             .navigationTitle("Skincare")
-            .onAppear { loadDayFlags() }
+            .anchorTabRoot()
+            .anchorHardScrollEdge([.bottom])
+            .onAppear {
+                store.ensureRoutineCatalog()
+                store.backfillRoutineCompletions()
+                syncTodayChecklist()
+            }
         }
     }
 
     private var amSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Morning")
-                .font(.headline)
-
-            stepToggle("Cleanser", isOn: $amCleanser, key: "skincare.am.cleanser")
-            stepToggle("Vitamin C (optional)", isOn: $amVitaminC, key: "skincare.am.vitaminc")
-            stepToggle("Moisturizer", isOn: $amMoisturizer, key: "skincare.am.moisturizer")
-            stepToggle("Sunscreen", isOn: $amSunscreen, key: "skincare.am.sunscreen")
+        VStack(alignment: .leading, spacing: 8) {
+            AnchorSectionLabel(title: "Morning")
+            ForEach(morningSteps, id: \.persistentModelID) { step in
+                stepToggle(step)
+            }
         }
-        .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
     private var pmSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Evening")
-                .font(.headline)
+        VStack(alignment: .leading, spacing: 8) {
+            AnchorSectionLabel(title: "Evening")
 
-            stepToggle("Cleanser", isOn: $pmCleanser, key: "skincare.pm.cleanser")
+            ForEach(eveningSteps.filter { $0.key == "skincare.pm.cleanser" }, id: \.persistentModelID) { step in
+                stepToggle(step)
+            }
 
             VStack(alignment: .leading, spacing: 8) {
                 Text("Active")
-                    .font(.subheadline)
+                    .font(AnchorFont.subheadlineEmphasized)
+                    .foregroundStyle(AnchorColor.textPrimary)
                 Picker("Active", selection: activeBinding) {
                     ForEach(SkincareActive.allCases) { active in
                         Text(active.displayName).tag(active)
@@ -90,17 +99,22 @@ struct SkincareView: View {
                 .pickerStyle(.menu)
 
                 Text("Suggested tonight: \(recommendedActive.displayName)")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(AnchorFont.caption)
+                    .foregroundStyle(AnchorColor.textSecondary)
 
                 if shouldWarnSpacing {
                     Text("Same strong active two nights in a row. Adapalene and benzoyl peroxide usually need spacing while you ramp up.")
-                        .font(.caption)
-                        .foregroundStyle(.orange)
+                        .font(AnchorFont.caption)
+                        .foregroundStyle(AnchorColor.accentAttention)
                 }
             }
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .anchorSurface(.raised)
 
-            stepToggle("Moisturizer", isOn: $pmMoisturizer, key: "skincare.pm.moisturizer")
+            ForEach(eveningSteps.filter { $0.key != "skincare.pm.cleanser" }, id: \.persistentModelID) { step in
+                stepToggle(step)
+            }
 
             Toggle(
                 "Irritation today",
@@ -113,24 +127,22 @@ struct SkincareView: View {
                     }
                 )
             )
+            .tint(AnchorColor.brand)
+            .padding(12)
+            .anchorSurface(.raised)
         }
-        .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
-    private func stepToggle(_ title: String, isOn: Binding<Bool>, key: String) -> some View {
-        TaskCard(
-            icon: skincareIcon(for: title),
-            title: title,
-            isComplete: isOn.wrappedValue,
+    private func stepToggle(_ step: RoutineStep) -> some View {
+        let complete = store.isRoutineStepCompleteToday(stepID: step.id)
+        return TaskCard(
+            icon: skincareIcon(for: step.title),
+            title: step.title,
+            isComplete: complete,
             prominence: .standard
         ) {
-            let newValue = !isOn.wrappedValue
-            isOn.wrappedValue = newValue
-            DayScopedFlag.set(key, newValue)
-            if newValue, key.hasPrefix("skincare.pm"), tonightLog == nil {
+            store.toggleRoutineStep(stepID: step.id)
+            if !complete, step.category == .skincarePM, tonightLog == nil {
                 store.upsertSkincareNightLog { log in
                     if log.activeUsed == nil {
                         log.activeUsed = recommendedActive.storedValue
@@ -144,7 +156,6 @@ struct SkincareView: View {
     private func skincareIcon(for title: String) -> String {
         if title.localizedCaseInsensitiveContains("vitamin") { return "sparkle" }
         if title.localizedCaseInsensitiveContains("sunscreen") { return "sun.max" }
-        if title.localizedCaseInsensitiveContains("moisturizer") { return "drop.fill" }
         return "drop"
     }
 
@@ -160,20 +171,15 @@ struct SkincareView: View {
         )
     }
 
-    private func loadDayFlags() {
-        amCleanser = DayScopedFlag.isOn("skincare.am.cleanser")
-        amVitaminC = DayScopedFlag.isOn("skincare.am.vitaminc")
-        amMoisturizer = DayScopedFlag.isOn("skincare.am.moisturizer")
-        amSunscreen = DayScopedFlag.isOn("skincare.am.sunscreen")
-        pmCleanser = DayScopedFlag.isOn("skincare.pm.cleanser")
-        pmMoisturizer = DayScopedFlag.isOn("skincare.pm.moisturizer")
-    }
-
     private func syncTodayChecklist() {
-        let amDone = amCleanser && amMoisturizer && amSunscreen
+        let amDone = morningSteps.filter { !$0.isOptional }.allSatisfy {
+            store.isRoutineStepCompleteToday(stepID: $0.id)
+        }
         setChecklist("AM skincare", completed: amDone)
 
-        let pmDone = pmCleanser && pmMoisturizer
+        let pmDone = eveningSteps.filter { !$0.isOptional }.allSatisfy {
+            store.isRoutineStepCompleteToday(stepID: $0.id)
+        }
         setChecklist("PM skincare", completed: pmDone)
     }
 

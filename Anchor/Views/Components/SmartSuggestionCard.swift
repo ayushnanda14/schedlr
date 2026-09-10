@@ -6,25 +6,25 @@ struct SmartSuggestionCard: View {
     var onDismiss: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Suggested change")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(.secondary)
+        VStack(alignment: .leading, spacing: 12) {
+            StatusPill(text: "Suggested change", tone: .brand)
             Text(proposal.reason)
-                .font(.subheadline)
+                .font(AnchorFont.body)
+                .foregroundStyle(AnchorColor.textPrimary)
             HStack(spacing: 8) {
                 Button("Review", action: onReview)
                     .buttonStyle(.borderedProminent)
+                    .frame(minHeight: 44)
                     .accessibilityIdentifier("proposal.review")
                 Button("Dismiss", action: onDismiss)
                     .buttonStyle(.bordered)
+                    .frame(minHeight: 44)
                     .accessibilityIdentifier("proposal.dismiss")
             }
         }
-        .padding(12)
+        .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .anchorSurface(.hero)
         .accessibilityElement(children: .contain)
         .accessibilityLabel("Suggested change")
         .accessibilityValue(proposal.reason)

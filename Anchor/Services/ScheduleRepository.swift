@@ -375,7 +375,7 @@ extension LocalSwiftDataStore: ScheduleRepository {
         record.syncStatus == .pendingDelete
     }
 
-    private func fetch<T: PersistentModel>(_ type: T.Type) -> [T] {
+    func fetch<T: PersistentModel>(_ type: T.Type) -> [T] {
         (try? context.fetch(FetchDescriptor<T>())) ?? []
     }
 }

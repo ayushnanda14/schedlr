@@ -6,6 +6,9 @@ struct UndoToken: Identifiable, Equatable {
         case periodicTask(UUID)
         case proposal(PlanProposal)
         case scheduleShift(item: TodayTimelineItem, beforeStart: Date?, beforeEnd: Date?)
+        case routineStep(UUID)
+        case activityEvent(UUID)
+        case learnedPreference(UUID)
     }
 
     var id: UUID

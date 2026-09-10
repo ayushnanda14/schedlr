@@ -21,6 +21,7 @@ struct AnchorApp: App {
         notificationBridge = bridge
         UNUserNotificationCenter.current().delegate = bridge
         NotificationScheduler.registerCategories()
+        AnchorTheme.install()
     }
 
     var body: some Scene {

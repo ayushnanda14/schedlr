@@ -15,7 +15,14 @@ enum SeedData {
             context.insert(NotificationPreferences())
         }
 
+        if try context.fetchCount(FetchDescriptor<SuggestionPreferences>()) == 0 {
+            context.insert(SuggestionPreferences())
+        }
+
         backfillPhase5(context: context)
+        let store = LocalSwiftDataStore(context: context)
+        store.ensureRoutineCatalog()
+        store.backfillRoutineCompletions()
         try context.save()
     }
 
@@ -41,6 +48,13 @@ enum SeedData {
         uniquifyIDs((try? context.fetch(FetchDescriptor<PeriodicTaskCompletionEvent>())) ?? [])
         uniquifyIDs((try? context.fetch(FetchDescriptor<NotificationEvent>())) ?? [])
         uniquifyIDs((try? context.fetch(FetchDescriptor<ActionEvent>())) ?? [])
+        uniquifyIDs((try? context.fetch(FetchDescriptor<RoutineStep>())) ?? [])
+        uniquifyIDs((try? context.fetch(FetchDescriptor<RoutineCompletionEvent>())) ?? [])
+        uniquifyIDs((try? context.fetch(FetchDescriptor<ActivityCompletionEvent>())) ?? [])
+        uniquifyIDs((try? context.fetch(FetchDescriptor<RoutineSuggestionRecord>())) ?? [])
+        uniquifyIDs((try? context.fetch(FetchDescriptor<SuggestionResponseEvent>())) ?? [])
+        uniquifyIDs((try? context.fetch(FetchDescriptor<LearnedPreference>())) ?? [])
+        uniquifyIDs((try? context.fetch(FetchDescriptor<SuggestionPreferences>())) ?? [])
     }
 
     private static func uniquifyIDs(_ records: [any SyncableRecord]) {

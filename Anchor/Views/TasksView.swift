@@ -41,7 +41,7 @@ struct TasksView: View {
                     )
                 } else {
                     ScrollView {
-                        VStack(alignment: .leading, spacing: 12) {
+                        VStack(alignment: .leading, spacing: 10) {
                             if let token = undoCoordinator.token {
                                 UndoBanner(message: token.message) {
                                     undoCoordinator.undo(using: store)
@@ -56,11 +56,17 @@ struct TasksView: View {
                                 }
                             }
                         }
-                        .padding()
+                        .padding(.horizontal, 16)
+                        .padding(.top, 8)
+                        .padding(.bottom, 20)
                     }
+                    .background(AnchorScreenBackground())
+                    .anchorHardScrollEdge(.bottom)
                 }
             }
+            .background(AnchorScreenBackground())
             .navigationTitle("Tasks")
+            .anchorTabRoot()
         }
     }
 

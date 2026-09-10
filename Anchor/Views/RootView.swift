@@ -22,6 +22,9 @@ struct RootView: View {
                     }
             } else {
                 ProgressView()
+                    .tint(AnchorColor.brand)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(AnchorScreenBackground())
             }
         }
         .onAppear {

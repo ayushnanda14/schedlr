@@ -168,8 +168,8 @@ struct QuickCaptureSheet: View {
                         .font(.caption)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 6)
-                        .background(draft?.exceptionKind == preset.kind ? Color.primary : Color(.secondarySystemBackground))
-                        .foregroundStyle(draft?.exceptionKind == preset.kind ? Color(.systemBackground) : Color.primary)
+                        .background(draft?.exceptionKind == preset.kind ? AnchorColor.brand : AnchorColor.surfaceMuted)
+                        .foregroundStyle(draft?.exceptionKind == preset.kind ? AnchorColor.onBrand : AnchorColor.textPrimary)
                         .clipShape(Capsule())
                         .accessibilityIdentifier("capture.exception.\(preset.kind.rawValue)")
                     }
@@ -472,8 +472,11 @@ private struct FlowChips: View {
                     .font(.caption)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 6)
-                    .background(Color(.secondarySystemBackground))
+                    .background(item.inferred ? AnchorColor.brandSoft : AnchorColor.surfaceMuted)
                     .clipShape(Capsule())
+                    .overlay(
+                        Capsule().strokeBorder(item.inferred ? AnchorColor.brand.opacity(0.25) : AnchorColor.border, lineWidth: 1)
+                    )
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(item.inferred ? "\(item.label), inferred" : item.label)

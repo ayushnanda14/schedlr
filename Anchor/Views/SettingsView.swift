@@ -31,8 +31,12 @@ struct SettingsView: View {
                 gymScheduleSection
                 cadenceSection
                 notificationsSection
+                insightsSection
             }
             .navigationTitle("Settings")
+            .scrollContentBackground(.hidden)
+            .background(AnchorScreenBackground())
+            .toolbarBackground(AnchorColor.background, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
@@ -40,6 +44,7 @@ struct SettingsView: View {
             }
             .onAppear {
                 NotificationScheduler.ensurePreferences(in: modelContext)
+                _ = SuggestionCoordinator(store: store).suggestionPreferences()
             }
         }
     }
@@ -152,6 +157,22 @@ struct SettingsView: View {
                     }
                 }
             }
+        }
+    }
+
+    private var insightsSection: some View {
+        Section("Insights") {
+            NavigationLink {
+                InsightsView()
+            } label: {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Learned assumptions")
+                    Text("Inspect evidence and reset experiments")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .accessibilityIdentifier("settings.insights")
         }
     }
 

@@ -238,107 +238,189 @@ final class LocalSwiftDataStore: DataStore {
     }
 
     func fetchHistory(filter: HistoryFilter) -> [HistoryEntry] {
-        var entries: [HistoryEntry] = []
+        let composer = HistoryComposer()
+        var facts: [HistoryEntry] = []
 
-        let items = ((try? context.fetch(FetchDescriptor<DailyChecklistItem>())) ?? []).filter { !$0.isDeleted }
+        let items = fetch(DailyChecklistItem.self).filter { !$0.isDeleted }
         let itemByID = Dictionary(items.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
-        if filter == .all || filter == .gym || filter == .skincare {
-            let events = ((try? context.fetch(FetchDescriptor<ChecklistCompletionEvent>())) ?? [])
-                .filter { $0.syncStatus != .pendingDelete }
-            for event in events {
-                guard let item = itemByID[event.checklistItemID] else { continue }
-                if filter == .gym && item.category != .gym { continue }
-                if filter == .skincare && item.category != .skincareAM && item.category != .skincarePM { continue }
-                entries.append(HistoryEntry(
-                    id: UUID(),
-                    filter: item.category == .gym ? .gym : .skincare,
-                    date: event.completedAt,
-                    title: item.title,
-                    detail: event.modeAtCompletion.displayName,
-                    systemImage: item.category == .gym ? "dumbbell" : (item.category == .skincareAM || item.category == .skincarePM ? "drop" : "checkmark.circle")
-                ))
+        for event in fetch(ChecklistCompletionEvent.self).filter({ $0.syncStatus != .pendingDelete }) {
+            guard let item = itemByID[event.checklistItemID] else { continue }
+            let filterKind: HistoryFilter
+            switch item.category {
+            case .gym: filterKind = .gym
+            case .skincareAM, .skincarePM: filterKind = .skincare
+            default: filterKind = .all
             }
+            facts.append(HistoryEntry(
+                id: event.id,
+                filter: filterKind,
+                date: event.completedAt,
+                title: item.title,
+                detail: composer.detail(context: .completed, supporting: event.modeAtCompletion.displayName),
+                systemImage: item.category == .gym ? "dumbbell" : (item.category == .skincareAM || item.category == .skincarePM ? "drop" : "checkmark.circle"),
+                context: .completed
+            ))
         }
 
-        if filter == .all || filter == .gym {
-            let sessions = ((try? context.fetch(FetchDescriptor<WorkoutSession>())) ?? []).filter { !$0.isDeleted }
-            for session in sessions {
-                let sets = session.setLogs.filter { !$0.isDeleted }
-                let top = sets.max(by: { $0.weightKg < $1.weightKg })
-                let detail: String
-                if let top {
-                    detail = "\(session.splitDay.displayName) · \(top.exerciseName) \(Int(top.weightKg)) kg × \(top.reps)"
-                } else {
-                    detail = session.splitDay.displayName
-                }
-                entries.append(HistoryEntry(
-                    id: UUID(),
-                    filter: .gym,
-                    date: session.date,
-                    title: "Workout",
-                    detail: detail,
-                    systemImage: "figure.strengthtraining.traditional",
-                    workoutSessionID: session.id
-                ))
+        for session in fetch(WorkoutSession.self).filter({ !$0.isDeleted }) {
+            let sets = session.setLogs.filter { !$0.isDeleted }
+            let top = sets.max(by: { $0.weightKg < $1.weightKg })
+            let supporting: String
+            if let top {
+                supporting = "\(session.splitDay.displayName) · \(top.exerciseName) \(Int(top.weightKg)) kg × \(top.reps)"
+            } else {
+                supporting = session.splitDay.displayName
             }
+            facts.append(HistoryEntry(
+                id: session.id,
+                filter: .gym,
+                date: session.date,
+                title: "Workout",
+                detail: composer.detail(context: .logged, supporting: supporting),
+                systemImage: "figure.strengthtraining.traditional",
+                context: .logged,
+                workoutSessionID: session.id
+            ))
         }
 
-        if filter == .all || filter == .skincare {
-            let logs = ((try? context.fetch(FetchDescriptor<SkincareNightLog>())) ?? []).filter { !$0.isDeleted }
-            for log in logs {
-                entries.append(HistoryEntry(
-                    id: UUID(),
-                    filter: .skincare,
-                    date: log.date,
-                    title: "PM skincare",
-                    detail: log.activeUsed ?? "No active",
-                    systemImage: "drop.fill"
-                ))
-            }
+        for log in fetch(SkincareNightLog.self).filter({ !$0.isDeleted }) {
+            facts.append(HistoryEntry(
+                id: log.id,
+                filter: .skincare,
+                date: log.date,
+                title: "PM active",
+                detail: composer.detail(context: .logged, supporting: log.activeUsed ?? "No active"),
+                systemImage: "drop.fill",
+                context: .logged
+            ))
         }
 
-        if filter == .all || filter == .periodicTasks {
-            let tasks = ((try? context.fetch(FetchDescriptor<PeriodicTask>())) ?? []).filter { !$0.isDeleted }
-            let taskByID = Dictionary(tasks.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
-            let events = ((try? context.fetch(FetchDescriptor<PeriodicTaskCompletionEvent>())) ?? [])
-                .filter { $0.syncStatus != .pendingDelete }
-            for event in events {
-                entries.append(HistoryEntry(
-                    id: UUID(),
-                    filter: .periodicTasks,
-                    date: event.completedAt,
-                    title: taskByID[event.periodicTaskID]?.title ?? "Task",
-                    detail: "Completed",
-                    systemImage: "house",
-                    periodicTaskID: event.periodicTaskID
-                ))
-            }
+        let tasks = fetch(PeriodicTask.self).filter { !$0.isDeleted }
+        let taskByID = Dictionary(tasks.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+        for event in fetch(PeriodicTaskCompletionEvent.self).filter({ $0.syncStatus != .pendingDelete }) {
+            facts.append(HistoryEntry(
+                id: event.id,
+                filter: .periodicTasks,
+                date: event.completedAt,
+                title: taskByID[event.periodicTaskID]?.title ?? "Task",
+                detail: composer.detail(context: .completed, supporting: ""),
+                systemImage: "house",
+                context: .completed,
+                periodicTaskID: event.periodicTaskID
+            ))
         }
 
-        if filter == .all || filter == .weight {
-            let weights = ((try? context.fetch(FetchDescriptor<WeightEntry>())) ?? []).filter { !$0.isDeleted }
-            for entry in weights {
-                entries.append(HistoryEntry(
-                    id: UUID(),
-                    filter: .weight,
-                    date: entry.date,
-                    title: "Weight",
-                    detail: String(format: "%.1f kg", entry.weightKg),
-                    systemImage: "scalemass"
-                ))
-            }
+        for entry in fetch(WeightEntry.self).filter({ !$0.isDeleted }) {
+            facts.append(HistoryEntry(
+                id: entry.id,
+                filter: .weight,
+                date: entry.date,
+                title: "Weight",
+                detail: composer.detail(context: .logged, supporting: String(format: "%.1f kg", entry.weightKg)),
+                systemImage: "scalemass",
+                context: .logged
+            ))
         }
 
-        return entries.sorted { $0.date > $1.date }
+        let steps = Dictionary(
+            fetch(RoutineStep.self).filter { !$0.isDeleted }.map { ($0.id, $0) },
+            uniquingKeysWith: { first, _ in first }
+        )
+        for event in fetch(RoutineCompletionEvent.self).filter({ $0.syncStatus != .pendingDelete }) {
+            guard let step = steps[event.routineStepID] else { continue }
+            facts.append(HistoryEntry(
+                id: event.id,
+                filter: .skincare,
+                date: event.completedAt,
+                title: step.title,
+                detail: composer.detail(context: .completed, supporting: step.category == .skincarePM ? "Evening" : "Morning"),
+                systemImage: "drop",
+                context: .completed
+            ))
+        }
+
+        for event in activeActivityEvents() {
+            let context: HistoryEventContext = event.kind == .corrected ? .corrected : .completed
+            let supporting: String
+            if event.kind == .corrected {
+                supporting = "Planned: \(event.plannedTitle) · Actual: \(event.actualTitle)"
+            } else {
+                supporting = event.plannedTitle
+            }
+            facts.append(HistoryEntry(
+                id: event.id,
+                filter: .schedule,
+                date: event.occurredAt,
+                title: event.kind == .corrected ? event.actualTitle : event.plannedTitle,
+                detail: composer.detail(context: context, supporting: supporting),
+                systemImage: event.kind == .corrected ? "arrow.triangle.2.circlepath" : "checkmark.circle",
+                context: context
+            ))
+        }
+
+        let completedBlockIDs = Set(
+            activeActivityEvents().filter { $0.kind == .completed }.compactMap(\.timeBlockID)
+        )
+        let blocks = Dictionary(
+            fetch(TimeBlock.self).map { ($0.id, $0) },
+            uniquingKeysWith: { first, _ in first }
+        )
+        let activities = Dictionary(
+            fetch(Activity.self).map { ($0.id, $0) },
+            uniquingKeysWith: { first, _ in first }
+        )
+        let planTasks = Dictionary(
+            fetch(PlanTask.self).map { ($0.id, $0) },
+            uniquingKeysWith: { first, _ in first }
+        )
+        for change in fetch(ScheduleChangeEvent.self).filter({ $0.syncStatus != .pendingDelete }) {
+            if change.kind == .completed, completedBlockIDs.contains(change.timeBlockID) {
+                continue
+            }
+            guard let context = composer.context(
+                for: change.kind,
+                beforeStart: change.beforeStartAt,
+                afterStart: change.afterStartAt,
+                calendar: clock.calendar
+            ) else { continue }
+            let block = blocks[change.timeBlockID]
+            let title = scheduleTitle(for: block, activities: activities, planTasks: planTasks)
+            facts.append(HistoryEntry(
+                id: change.id,
+                filter: .schedule,
+                date: change.createdAt,
+                title: title,
+                detail: composer.detail(context: context, supporting: change.reason ?? ""),
+                systemImage: "calendar",
+                context: context
+            ))
+        }
+
+        return composer.compose(facts, filter: filter)
+    }
+
+    private func scheduleTitle(
+        for block: TimeBlock?,
+        activities: [UUID: Activity],
+        planTasks: [UUID: PlanTask]
+    ) -> String {
+        if let activityID = block?.activityID, let activity = activities[activityID] {
+            return activity.title
+        }
+        if let taskID = block?.planTaskID, let task = planTasks[taskID] {
+            return task.title
+        }
+        return "Schedule"
     }
 
     func heatmapCounts(weeks: Int) -> [Date: Int] {
-        let calendar = Calendar.current
-        let events = ((try? context.fetch(FetchDescriptor<ChecklistCompletionEvent>())) ?? [])
-            .filter { $0.syncStatus != .pendingDelete }
+        let calendar = clock.calendar
         var counts: [Date: Int] = [:]
-        for event in events {
-            let day = calendar.startOfDay(for: event.completedAt)
+        let checklist = fetch(ChecklistCompletionEvent.self).filter { $0.syncStatus != .pendingDelete }
+        let routine = fetch(RoutineCompletionEvent.self).filter { $0.syncStatus != .pendingDelete }
+        let activity = activeActivityEvents().filter { $0.kind == .completed }
+        for date in checklist.map(\.completedAt) + routine.map(\.completedAt) + activity.map(\.occurredAt) {
+            let day = calendar.startOfDay(for: date)
             counts[day, default: 0] += 1
         }
         _ = weeks
@@ -384,7 +466,7 @@ final class LocalSwiftDataStore: DataStore {
         StreakMath.recompute(task: task, events: taskEvents(taskID: task.id))
     }
 
-    private func save() {
+    func save() {
         try? context.save()
     }
 

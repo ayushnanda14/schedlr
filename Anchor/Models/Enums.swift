@@ -103,6 +103,7 @@ enum HistoryFilter: String, CaseIterable, Identifiable {
     case skincare
     case periodicTasks
     case weight
+    case schedule
 
     var id: String { rawValue }
 
@@ -113,6 +114,7 @@ enum HistoryFilter: String, CaseIterable, Identifiable {
         case .skincare: return "Skincare"
         case .periodicTasks: return "Periodic Tasks"
         case .weight: return "Weight"
+        case .schedule: return "Schedule"
         }
     }
 }

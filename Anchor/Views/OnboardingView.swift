@@ -8,39 +8,52 @@ struct OnboardingView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    Text("Anchor helps you track your daily routine — gym, tasks, nutrition, and more. Everything stays on your device.")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Welcome to Anchor")
+                        .font(AnchorFont.display)
+                        .foregroundStyle(AnchorColor.textPrimary)
+                    Text("A calm daily system for gym, tasks, nutrition, and the day as it actually unfolds. Everything stays on this device.")
+                        .font(AnchorFont.body)
+                        .foregroundStyle(AnchorColor.textSecondary)
                 }
 
-                Section("About you") {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("About you")
+                        .font(AnchorFont.section)
+                        .foregroundStyle(AnchorColor.textPrimary)
                     Stepper("Age: \(age)", value: $age, in: 16...80)
+                        .font(AnchorFont.bodyEmphasized)
                     Picker("Sex", selection: $sex) {
                         ForEach(Sex.allCases) { option in
                             Text(option.displayName).tag(option)
                         }
                     }
                     .pickerStyle(.segmented)
+                    .labelsHidden()
+                    .accessibilityLabel("Sex")
                 }
+                .padding(16)
+                .anchorSurface(.raised)
 
-                Section {
-                    Text("Weight defaults to 85 kg and height to 179 cm. You can change these later in Settings.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                Text("Weight defaults to 85 kg and height to 179 cm. You can change these later in Settings.")
+                    .font(AnchorFont.caption)
+                    .foregroundStyle(AnchorColor.textSecondary)
+
+                Spacer()
+
+                Button("Continue") {
+                    onComplete(age, sex)
                 }
+                .font(AnchorFont.bodyEmphasized)
+                .frame(maxWidth: .infinity, minHeight: 52)
+                .buttonStyle(.borderedProminent)
             }
-            .navigationTitle("Welcome to Anchor")
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Continue") {
-                        onComplete(age, sex)
-                    }
-                    .fontWeight(.semibold)
-                }
-            }
+            .padding(24)
+            .background(AnchorScreenBackground())
+            .navigationBarTitleDisplayMode(.inline)
         }
+        .tint(AnchorColor.brand)
     }
 }
 

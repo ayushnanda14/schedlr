@@ -35,6 +35,8 @@ struct TodayView: View {
     @State private var editingItem: TodayTimelineItem?
     @State private var activeProposal: PlanProposal?
     @State private var previewProposal: PlanProposal?
+    @State private var evidenceSuggestion: RoutineSuggestion?
+    @State private var editingSuggestion: RoutineSuggestion?
     private let todayComposer = TodayComposer()
 
     private var profile: UserProfile? { profiles.first }
@@ -51,26 +53,25 @@ struct TodayView: View {
         NavigationStack {
             TimelineView(.everyMinute) { timeline in
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading, spacing: 14) {
                         if let profile {
-                            modeSwitcher(profile: profile)
-                            if profile.currentMode != .away {
-                                gymHeader
-                            }
+                            todayHero(profile: profile)
 
                             if let token = undoCoordinator.token {
                                 UndoBanner(message: token.message) {
                                     undoCoordinator.undo(using: store)
                                     refreshProposal()
+                                    refreshSuggestion()
                                 }
                             } else if let captureNotice {
                                 UndoBanner(message: captureNotice)
                             }
 
                             if profile.currentMode != .away, let summary = pressureSummary(at: timeline.date) {
-                                VStack(alignment: .leading, spacing: 8) {
+                                VStack(alignment: .leading, spacing: 10) {
                                     Text(summary)
-                                        .font(.subheadline)
+                                        .font(AnchorFont.subheadline)
+                                        .foregroundStyle(AnchorColor.textPrimary)
                                     Button("Replan") {
                                         refreshProposal()
                                         if let activeProposal {
@@ -79,13 +80,13 @@ struct TodayView: View {
                                             captureNotice = "Nothing needs to move."
                                         }
                                     }
-                                    .font(.subheadline.weight(.semibold))
+                                    .buttonStyle(.borderedProminent)
+                                    .frame(minHeight: 44)
                                     .accessibilityIdentifier("pressure.replan")
                                 }
                                 .padding(12)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(Color(.secondarySystemBackground))
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .anchorSurface(.raised)
                                 .accessibilityIdentifier("pressure.summary")
                             }
                             if profile.currentMode != .away, let activeProposal {
@@ -93,6 +94,13 @@ struct TodayView: View {
                                     proposal: activeProposal,
                                     onReview: { previewProposal = activeProposal },
                                     onDismiss: { self.activeProposal = nil }
+                                )
+                            } else if profile.currentMode != .away, let evidenceSuggestion {
+                                EvidenceSuggestionCard(
+                                    suggestion: evidenceSuggestion,
+                                    onTry: { acceptSuggestion(evidenceSuggestion) },
+                                    onEdit: { editingSuggestion = evidenceSuggestion },
+                                    onDismiss: { dismissSuggestion(evidenceSuggestion) }
                                 )
                             }
 
@@ -124,12 +132,17 @@ struct TodayView: View {
                             )
                         }
                     }
-                    .padding()
-                    .padding(.bottom, 24)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 4)
+                    .padding(.bottom, 20)
                 }
+                .scrollIndicators(.hidden)
+                .anchorHardScrollEdge(.bottom)
             }
             .scrollDismissesKeyboard(.interactively)
+            .background(AnchorScreenBackground())
             .navigationTitle("Today")
+            .anchorTabRoot()
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
@@ -170,18 +183,61 @@ struct TodayView: View {
                     onDismiss: { activeProposal = nil }
                 )
             }
+            .sheet(item: $editingSuggestion) { suggestion in
+                let coordinator = SuggestionCoordinator(store: store)
+                let prefs = coordinator.notificationPreferences()
+                SuggestionEditSheet(
+                    suggestion: suggestion,
+                    initialGymHour: prefs.gymHour,
+                    initialSnoozeMinutes: prefs.snoozeMinutes,
+                    onSave: { gymHour, snoozeMinutes in
+                        acceptSuggestion(
+                            suggestion,
+                            editedGymHour: gymHour,
+                            editedSnoozeMinutes: snoozeMinutes
+                        )
+                        editingSuggestion = nil
+                    },
+                    onCancel: { editingSuggestion = nil }
+                )
+            }
             .onAppear {
                 resetLateNightIfNeeded()
                 refreshNotifications()
                 refreshProposal()
+                refreshSuggestion()
             }
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active {
                     resetLateNightIfNeeded()
                     refreshNotifications()
+                    refreshSuggestion()
                 }
             }
         }
+    }
+
+    @ViewBuilder
+    private func todayHero(profile: UserProfile) -> some View {
+        VStack(alignment: .leading, spacing: 14) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(Date().formattedDayName())
+                    .font(AnchorFont.captionEmphasized)
+                    .foregroundStyle(AnchorColor.textSecondary)
+                Text(profile.currentMode == .away
+                     ? "Away"
+                     : (todaySplit == .rest ? "Rest day" : todaySplit.displayName))
+                    .font(AnchorFont.display)
+                    .foregroundStyle(AnchorColor.textPrimary)
+                    .minimumScaleFactor(0.7)
+                    .lineLimit(1)
+            }
+            modeSwitcher(profile: profile)
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .anchorSurface(.hero)
+        .accessibilityElement(children: .contain)
     }
 
     @ViewBuilder
@@ -199,20 +255,8 @@ struct TodayView: View {
             }
         }
         .pickerStyle(.segmented)
-    }
-
-    private var gymHeader: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 2) {
-                Text(Date().formattedDayName())
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                Text(todaySplit == .rest ? "Rest day" : todaySplit.displayName)
-                    .font(.headline)
-            }
-            Spacer()
-        }
-        .padding(.horizontal, 4)
+        .labelsHidden()
+        .accessibilityLabel("Mode")
     }
 
     private var gymShortcut: some View {
@@ -221,95 +265,127 @@ struct TodayView: View {
                 split: todaySplit,
                 exercises: exercises,
                 sessions: sessions,
+                showsChrome: false,
                 onEnsureSession: {
                     store.ensureWorkoutSession(splitDay: todaySplit, notes: nil)
                 }
             )
             .padding(.top, 8)
         }
-        .font(.subheadline)
-        .padding()
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .font(AnchorFont.subheadlineEmphasized)
+        .foregroundStyle(AnchorColor.textPrimary)
+        .padding(12)
+        .anchorSurface(.raised)
     }
 
     @ViewBuilder
     private func scheduleSection(snapshot: TodaySnapshot) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Now / Next / Later")
-                .font(.headline)
-                .foregroundStyle(.secondary)
+            AnchorSectionLabel(title: "Now / Next / Later")
 
             if let current = snapshot.current {
-                timelineBlock(current, stateLabel: "Now")
+                timelineBlock(current, stateLabel: "Now", prominence: .now)
+                currentActivityActions(current)
             } else if let next = snapshot.next {
-                timelineBlock(next, stateLabel: "Next")
+                timelineBlock(next, stateLabel: "Next", prominence: .next)
             } else if !snapshot.hasAnyPlannedItems {
-                ContentUnavailableView {
-                    Label("No plans yet", systemImage: "calendar.badge.plus")
-                } description: {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("No plans yet")
+                        .font(AnchorFont.title)
+                        .foregroundStyle(AnchorColor.textPrimary)
                     Text("Add a commitment or task to shape your day.")
-                } actions: {
+                        .font(AnchorFont.subheadline)
+                        .foregroundStyle(AnchorColor.textSecondary)
                     Button("Add to today") {
                         showCapture = true
                     }
+                    .buttonStyle(.borderedProminent)
+                    .frame(minHeight: 44)
                     .accessibilityIdentifier("today.emptyCapture")
                 }
+                .padding(12)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .anchorSurface(.raised)
             }
 
             if let next = snapshot.next, snapshot.current != nil {
-                timelineBlock(next, stateLabel: "Next")
+                timelineBlock(next, stateLabel: "Next", prominence: .next)
             }
 
             if !snapshot.later.isEmpty {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("Later")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(.secondary)
-                    ForEach(snapshot.later) { item in
-                        timelineBlock(item, stateLabel: nil)
+                VStack(alignment: .leading, spacing: 0) {
+                    AnchorSectionLabel(title: "Later")
+                        .padding(.bottom, 6)
+                    ForEach(Array(snapshot.later.enumerated()), id: \.element.id) { index, item in
+                        timelineBlock(item, stateLabel: nil, prominence: .later)
+                        if index < snapshot.later.count - 1 {
+                            AnchorHairline()
+                                .padding(.leading, 34)
+                        }
                     }
                 }
+                .padding(12)
+                .anchorSurface(.raised)
             }
         }
     }
 
-    private func timelineBlock(_ item: TodayTimelineItem, stateLabel: String?) -> some View {
+    private func timelineBlock(
+        _ item: TodayTimelineItem,
+        stateLabel: String?,
+        prominence: TimelineProminence
+    ) -> some View {
         Button {
             editingItem = item
         } label: {
-            HStack(spacing: 10) {
-                Image(systemName: icon(for: item.kind))
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .frame(width: 18)
+            HStack(alignment: .top, spacing: 12) {
+                RoundedRectangle(cornerRadius: 2, style: .continuous)
+                    .fill(railColor(for: item.kind, prominence: prominence))
+                    .frame(width: 4, height: prominence == .now ? 48 : 32)
+                    .padding(.top, 4)
+                    .accessibilityHidden(true)
 
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack(spacing: 6) {
+                Image(systemName: icon(for: item.kind))
+                    .font(AnchorFont.subheadlineEmphasized)
+                    .foregroundStyle(AnchorColor.brand)
+                    .frame(width: 22, height: 44)
+                    .accessibilityHidden(true)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 8) {
                         if let stateLabel {
-                            Text(stateLabel.uppercased())
-                                .font(.caption2.weight(.semibold))
-                                .foregroundStyle(.secondary)
+                            StatusPill(text: stateLabel, tone: prominence == .now ? .brand : .neutral)
                         }
                         Text(item.title)
-                            .font(.subheadline.weight(.medium))
-                            .foregroundStyle(.primary)
-                            .lineLimit(1)
+                            .font(prominence == .now ? AnchorFont.heading : AnchorFont.bodyEmphasized)
+                            .foregroundStyle(AnchorColor.textPrimary)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(2)
                     }
                     Text(item.detail)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(AnchorFont.caption)
+                        .foregroundStyle(AnchorColor.textSecondary)
+                    if prominence == .now, let remaining = remainingCopy(for: item) {
+                        Text(remaining)
+                            .font(AnchorFont.captionEmphasized)
+                            .foregroundStyle(AnchorColor.brandDeep)
+                    }
                 }
-                Spacer()
+                Spacer(minLength: 0)
             }
-            .padding(10)
-            .background(Color(.secondarySystemBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(prominence == .later ? 6 : 12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .anchorSurface(prominence == .now ? .hero : (prominence == .later ? .flush : .raised))
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(item.title)
+        .accessibilityValue([stateLabel, item.detail, remainingCopy(for: item)].compactMap { $0 }.joined(separator: ", "))
         .accessibilityHint("Opens edit and remove")
         .contextMenu {
             Button("Edit") { editingItem = item }
+            if item.timeBlockID != nil, item.kind != .buffer {
+                Button("Mark done") { completeTimelineItem(item) }
+            }
             Button("Snooze 30 min") { shift(item, .snooze) }
             Button("Move to tonight") { shift(item, .tonight) }
             Button("Move to tomorrow") { shift(item, .tomorrow) }
@@ -318,6 +394,69 @@ struct TodayView: View {
                 handleScheduleMutation(confirmation)
             }
         }
+    }
+
+    private func remainingCopy(for item: TodayTimelineItem) -> String? {
+        guard let end = item.endAt else { return nil }
+        let now = store.clock.now
+        guard end > now else { return nil }
+        let minutes = max(store.clock.calendar.dateComponents([.minute], from: now, to: end).minute ?? 1, 1)
+        if minutes >= 60 {
+            let hours = minutes / 60
+            let remainder = minutes % 60
+            if remainder == 0 {
+                return hours == 1 ? "1 h left" : "\(hours) h left"
+            }
+            return "\(hours) h \(remainder) min left"
+        }
+        return "\(minutes) min left"
+    }
+
+    private func railColor(for kind: TodayTimelineItem.Kind, prominence: TimelineProminence) -> Color {
+        if prominence == .now { return AnchorColor.brand }
+        switch kind {
+        case .fixedCommitment: return AnchorColor.brand
+        case .taskBlock: return AnchorColor.accentInfo
+        case .buffer: return AnchorColor.border
+        case .dayException: return AnchorColor.accentAttention
+        }
+    }
+
+    @ViewBuilder
+    private func currentActivityActions(_ item: TodayTimelineItem) -> some View {
+        if item.kind != .buffer {
+            HStack(spacing: 12) {
+                Menu {
+                    Button("I'm not doing \(item.plannedTitle ?? item.title)") {
+                        correctCurrent(item, .notThis)
+                    }
+                    Button("I'm cleaning") { correctCurrent(item, .cleaning) }
+                    Button("I'm outside") { correctCurrent(item, .outside) }
+                    Button("I'm doing something else") { correctCurrent(item, .other) }
+                } label: {
+                    Text("Not this")
+                        .font(AnchorFont.subheadlineEmphasized)
+                        .frame(minHeight: 44)
+                }
+                .accessibilityIdentifier("today.correctCurrent")
+
+                if item.timeBlockID != nil {
+                    Button("Done") { completeTimelineItem(item) }
+                        .font(AnchorFont.subheadlineEmphasized)
+                        .buttonStyle(.borderedProminent)
+                        .frame(minHeight: 44)
+                        .accessibilityIdentifier("today.completeCurrent")
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 4)
+        }
+    }
+
+    private enum TimelineProminence {
+        case now
+        case next
+        case later
     }
 
     private func icon(for kind: TodayTimelineItem.Kind) -> String {
@@ -350,7 +489,9 @@ struct TodayView: View {
             activities: activities,
             planTasks: planTasks,
             timeBlocks: blocks,
-            exceptions: exceptions
+            exceptions: exceptions,
+            completedTimeBlockIDs: store.completedTimeBlockIDs(on: now),
+            currentOverride: store.currentActivityOverride(for: nil)
         )
     }
 
@@ -372,17 +513,24 @@ struct TodayView: View {
             } label: {
                 Image(systemName: "plus")
                     .font(.title3.weight(.semibold))
-                    .frame(width: 44, height: 44)
-                    .background(Color.primary)
-                    .foregroundStyle(Color(.systemBackground))
+                    .foregroundStyle(AnchorColor.onBrand)
+                    .frame(width: 52, height: 52)
+                    .background(AnchorColor.brand)
                     .clipShape(Circle())
+                    .shadow(color: AnchorColor.brand.opacity(0.35), radius: 10, x: 0, y: 4)
             }
             .accessibilityLabel("Add to today")
             .accessibilityIdentifier("today.add")
         }
-        .padding(.horizontal)
-        .padding(.vertical, 8)
-        .background(.ultraThinMaterial)
+        .padding(.horizontal, 16)
+        .padding(.top, 10)
+        .padding(.bottom, 8)
+        .background(
+            AnchorColor.surface
+                .shadow(color: Color.black.opacity(0.06), radius: 12, y: -4)
+                .ignoresSafeArea()
+        )
+        .overlay(alignment: .top) { AnchorHairline() }
     }
 
     private func lateNightBar(profile: UserProfile) -> some View {
@@ -402,14 +550,16 @@ struct TodayView: View {
         )) {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Running late tonight")
-                    .font(.subheadline.weight(.medium))
+                    .font(AnchorFont.subheadlineEmphasized)
+                    .foregroundStyle(AnchorColor.textPrimary)
                 if profile.lateNightModeActiveToday {
                     Text("Evening list is abbreviated.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(AnchorFont.caption)
+                        .foregroundStyle(AnchorColor.textSecondary)
                 }
             }
         }
+        .tint(AnchorColor.brand)
         .padding(.vertical, 4)
     }
 
@@ -436,6 +586,25 @@ struct TodayView: View {
         captureNotice = nil
         if result == .completed {
             undoCoordinator.register(UndoToken(message: "Marked complete", kind: .periodicTask(task.id)))
+        }
+    }
+
+    private func completeTimelineItem(_ item: TodayTimelineItem) {
+        let result = store.logActivityCompletion(item: item)
+        captureNotice = nil
+        if result == .completed, let event = store.latestActivityEvent(kind: .completed, matching: item) {
+            undoCoordinator.register(UndoToken(message: "Marked complete", kind: .activityEvent(event.id)))
+        }
+    }
+
+    private func correctCurrent(_ item: TodayTimelineItem, _ actual: CurrentActivityKind) {
+        let result = store.logActivityCorrection(item: item, actual: actual)
+        captureNotice = nil
+        if result == .completed, let event = store.latestActivityEvent(kind: .corrected, matching: item) {
+            undoCoordinator.register(UndoToken(
+                message: "Now: \(actual.displayName)",
+                kind: .activityEvent(event.id)
+            ))
         }
     }
 
@@ -469,6 +638,35 @@ struct TodayView: View {
         }
         activeProposal = ProposalCoordinator(repository: store, clock: store.clock)
             .makeProposal(now: store.clock.now)
+    }
+
+    private func refreshSuggestion() {
+        guard let profile, profile.currentMode != .away else {
+            evidenceSuggestion = nil
+            return
+        }
+        evidenceSuggestion = SuggestionCoordinator(store: store).evaluate()
+    }
+
+    private func acceptSuggestion(
+        _ suggestion: RoutineSuggestion,
+        editedGymHour: Int? = nil,
+        editedSnoozeMinutes: Int? = nil
+    ) {
+        let token = SuggestionCoordinator(store: store).accept(
+            suggestion,
+            editedGymHour: editedGymHour,
+            editedSnoozeMinutes: editedSnoozeMinutes
+        )
+        undoCoordinator.register(token)
+        captureNotice = nil
+        evidenceSuggestion = nil
+        Haptics.light()
+    }
+
+    private func dismissSuggestion(_ suggestion: RoutineSuggestion) {
+        SuggestionCoordinator(store: store).dismiss(suggestion)
+        evidenceSuggestion = nil
     }
 
     private func applyProposal(_ proposal: PlanProposal) {

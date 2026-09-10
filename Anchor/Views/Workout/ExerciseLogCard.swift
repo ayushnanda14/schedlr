@@ -15,11 +15,12 @@ struct ExerciseLogCard: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(alignment: .firstTextBaseline) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(exercise.name)
-                        .font(.headline)
+                        .font(AnchorFont.title)
+                        .foregroundStyle(AnchorColor.textPrimary)
                     Text(exercise.targetLabel)
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -41,12 +42,11 @@ struct ExerciseLogCard: View {
 
             if readyToIncrease {
                 Text("Ready to increase weight")
-                    .font(.caption)
-                    .fontWeight(.semibold)
+                    .font(AnchorFont.captionEmphasized)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(Color.green.opacity(0.18))
-                    .foregroundStyle(.green)
+                    .background(AnchorColor.brandSoft)
+                    .foregroundStyle(AnchorColor.brandDeep)
                     .clipShape(Capsule())
             }
 
@@ -54,9 +54,13 @@ struct ExerciseLogCard: View {
                 setRow(draft: $draft)
             }
         }
-        .padding()
-        .background(Color(.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(12)
+        .background(AnchorColor.surface)
+        .clipShape(RoundedRectangle(cornerRadius: AnchorRadius.surface, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: AnchorRadius.surface, style: .continuous)
+                .strokeBorder(AnchorColor.border, lineWidth: 1)
+        )
         .onAppear { rebuildDrafts() }
         .onChange(of: loggedSetCount) { _, _ in rebuildDrafts() }
     }
@@ -77,9 +81,7 @@ struct ExerciseLogCard: View {
                 TextField("kg", value: draft.weightKg, format: .number.precision(.fractionLength(0...1)))
                     .keyboardType(.decimalPad)
                     .multilineTextAlignment(.center)
-                    .padding(8)
-                    .background(Color(.tertiarySystemFill))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .anchorField()
                     .frame(width: 72)
                 Text("kg")
                     .font(.caption)
@@ -89,9 +91,7 @@ struct ExerciseLogCard: View {
             TextField(exercise.isRepBased ? "reps" : "secs", value: draft.reps, format: .number)
                 .keyboardType(.numberPad)
                 .multilineTextAlignment(.center)
-                .padding(8)
-                .background(Color(.tertiarySystemFill))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .anchorField()
                 .frame(width: 64)
             Text(exercise.isRepBased ? "reps" : "s")
                 .font(.caption)
@@ -99,12 +99,14 @@ struct ExerciseLogCard: View {
 
             Spacer(minLength: 0)
 
-            Button(draft.wrappedValue.isLogged ? "Update" : "Log") {
+            AnchorCompactActionButton(
+                title: draft.wrappedValue.isLogged ? "Update" : "Log",
+                isProminent: !draft.wrappedValue.isLogged
+            ) {
                 log(draft.wrappedValue)
             }
-            .buttonStyle(.bordered)
-            .controlSize(.small)
             .disabled(draft.wrappedValue.reps <= 0)
+            .opacity(draft.wrappedValue.reps <= 0 ? 0.45 : 1)
         }
     }
 

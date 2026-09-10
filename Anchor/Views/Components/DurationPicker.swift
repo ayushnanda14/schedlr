@@ -7,7 +7,7 @@ struct DurationPicker: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Duration: \(DurationFormatting.string(minutes))")
-                .font(.subheadline.weight(.medium))
+                .font(AnchorFont.subheadlineEmphasized)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
@@ -20,8 +20,8 @@ struct DurationPicker: View {
                                 .font(.caption)
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 6)
-                                .background(minutes == preset ? Color.primary : Color(.secondarySystemBackground))
-                                .foregroundStyle(minutes == preset ? Color(.systemBackground) : Color.primary)
+                                .background(minutes == preset ? AnchorColor.brand : AnchorColor.surfaceMuted)
+                                .foregroundStyle(minutes == preset ? AnchorColor.onBrand : AnchorColor.textPrimary)
                                 .clipShape(Capsule())
                         }
                         .buttonStyle(.plain)

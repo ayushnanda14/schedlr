@@ -44,5 +44,7 @@ extension View {
             .modelContainer(container)
             .environment(LocalSwiftDataStore(context: container.mainContext))
             .environment(UndoCoordinator())
+            .tint(AnchorColor.brand)
+            .onAppear { AnchorTheme.install() }
     }
 }
