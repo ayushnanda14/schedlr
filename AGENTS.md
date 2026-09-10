@@ -35,7 +35,8 @@ If a task conflicts with these documents, call out the conflict and prefer the e
 
 ## UI implementation rules
 - Prefer minimal layouts, strong hierarchy, generous whitespace, and restrained decoration.
-- Primary palette: white/light neutrals, light green hues, and black/deep neutrals.
+- Primary palette: white/light neutrals, warm near-black, and black/deep neutrals.
+- One saturated vermillion accent for small controls, labels, indicators, and the selected tab. Do not use it as a large fill.
 - Bright contrasting accents are allowed for small controls, labels, indicators, pointers, and emphasis. Accent colors should occupy a small visual area while remaining easy to notice.
 - Gradients are allowed on backgrounds and selected surfaces, but should remain subtle and never dominate the interface.
 - Avoid purple-heavy palettes, neon gradients, glassmorphism overload, excessive shadows, or generic “AI slop” aesthetics.

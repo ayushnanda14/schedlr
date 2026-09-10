@@ -30,8 +30,10 @@ struct ExerciseLogCard: View {
                     ExerciseHistoryView(exercise: exercise)
                 } label: {
                     Text("History")
-                        .font(.caption)
+                        .font(AnchorFont.captionEmphasized)
+                        .frame(minHeight: 44)
                 }
+                .accessibilityLabel("History for \(exercise.name)")
             }
 
             Text(lastSets.isEmpty

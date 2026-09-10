@@ -6,7 +6,7 @@
 	<dict>
 		<key>Anchor.debug.dylib</key>
 		<data>
-		2cdlPPaDp3FEDN1tZz/fVtBt2zQ=
+		eyC22zICoNbON8puz0PqxKU05Q8=
 		</data>
 		<key>AppIcon60x60@2x.png</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		nqZS+cad1qg5MtHlGg9EkvCBiUA=
+		NIsbougaDUYmhvS2A5XvmxNeXpg=
 		</data>
 		<key>Frameworks/Testing.framework/Info.plist</key>
 		<data>
@@ -142,7 +142,27 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		zNirxS3j206OGvNMW/+U8vNsPLc=
+		WCAameyHzHVwnViKGply3I4rq5E=
+		</data>
+		<key>Lato-Bold.ttf</key>
+		<data>
+		o6U6Q2uq9twuegXwWGanYcIUaSs=
+		</data>
+		<key>Lato-Italic.ttf</key>
+		<data>
+		X6tkyHUr4CCkLxi3RpC3Y1YHP+0=
+		</data>
+		<key>Lato-Medium.ttf</key>
+		<data>
+		7CMZvEUCzGu4jfif0azdcn+1XOk=
+		</data>
+		<key>Lato-Regular.ttf</key>
+		<data>
+		KesZJimwu7Qae39JqyrsgtQmGSE=
+		</data>
+		<key>OFL.txt</key>
+		<data>
+		dol7N+En4jMqGnmqsuDW8wzNxHo=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -150,7 +170,7 @@
 		</data>
 		<key>PlugIns/AnchorTests.xctest/AnchorTests</key>
 		<data>
-		EaXlj4P+5l6CXLvIHNM5Xx3b6vU=
+		Wzdj+V2idCI675blYga96S0nuzg=
 		</data>
 		<key>PlugIns/AnchorTests.xctest/Info.plist</key>
 		<data>
@@ -171,7 +191,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			FSDDi8pxNeCmsCQp6fsOQqZW6NxkxR2rNxjohaIPbf0=
+			odKM9di5AQyhjCaLwpmP7ZKmIvvgOLuLdXpCM02aXd0=
 			</data>
 		</dict>
 		<key>AppIcon60x60@2x.png</key>
@@ -192,7 +212,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			W+/cstzb/6ZcmG7cvOvrvQiGjIhO1Y7yNQaWmRCA/CA=
+			7yvK5WrqdfzhXTlMwN+WnyC6Q+E7X8ZYAte2H5YhhnE=
 			</data>
 		</dict>
 		<key>Frameworks/Testing.framework/Info.plist</key>
@@ -405,11 +425,46 @@
 			VHvnqPQlVj9O4j+a90mISry85W6ztCcUtpkp1xbopTM=
 			</data>
 		</dict>
+		<key>Lato-Bold.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			igqs510zeU7s5LKBh7/B3wu9KIi12KVuAXiMjWXRa+E=
+			</data>
+		</dict>
+		<key>Lato-Italic.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			45nETv4ThxAFMdJsfkgAxdEiUbiQ1mVKMJjHxnnLF4Y=
+			</data>
+		</dict>
+		<key>Lato-Medium.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			06wYKmgz4AV0XddWefutCBwLElNd9Ok62O1XgXoxozg=
+			</data>
+		</dict>
+		<key>Lato-Regular.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			1jbkaDIx+THtoiLViOlE0IK/0726AvkovuRhwPGFslE=
+			</data>
+		</dict>
+		<key>OFL.txt</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dLoGTQPx8cSpUtqTbD63GGbDRASRZzTePK5zs0NX5Z4=
+			</data>
+		</dict>
 		<key>PlugIns/AnchorTests.xctest/AnchorTests</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IHwV3YnR395qIYpJ+wsDp/tv//Y9qWNmagAnAJDnxU4=
+			FdbqJP9WMRPTrxKu1DPSeVh+vjlUvzU1eDZu6KOf8d4=
 			</data>
 		</dict>
 		<key>PlugIns/AnchorTests.xctest/Info.plist</key>

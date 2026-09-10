@@ -17,37 +17,34 @@ The visual language should feel closer to a beautifully designed personal tool t
 ## Color philosophy
 Primary palette:
 - White / warm near-white surfaces
-- Very light neutral backgrounds
-- Light greens and muted green tones
-- Black / deep charcoal for primary text and structure
+- Warm near-neutral page backgrounds
+- Black / near-black / deep charcoal for structure and dark-mode pages
 
-Accent palette:
-Use a small set of bright contrasting colors for:
-- tiny status indicators;
-- pointers/carets;
-- selected controls;
-- important labels;
-- progress markers;
-- notification or attention cues;
-- small action affordances.
+Accent:
+- One saturated vermillion (`#B8451F` light, `#E0522E` dark)
+- Use it for the selected control in a group, the current/next indicator, toggles, and small action affordances
+- Inactive siblings use text-secondary, not a washed accent
+- Do not fill cards, navigation bars, or large buttons with vermillion
+- The selected tab may use a small `accent-tint` wash; nothing else should
 
 Accents should be visually concentrated rather than used as large surfaces.
 
-Do not use purple as a default accent. Avoid multi-color gradients that resemble generic AI products.
+Do not use purple or sage-green as a default identity color. Avoid multi-color gradients that resemble generic AI products.
 
 ## Light theme direction
-- Primary background: white or subtly warm white.
-- Elevated surfaces: near-white with very slight contrast.
-- Text: black/deep charcoal.
-- Secondary text: cool/warm neutral gray with sufficient contrast.
-- Green: primary identity color, generally light-to-medium saturation.
+- Primary background: warm near-white (`#F6F4F1`).
+- Elevated surfaces: white.
+- Text: warm charcoal (`#292724`).
+- Secondary text: warm gray (`#96938C`) with sufficient contrast.
+- Vermillion: the only saturated identity color; keep it small.
 - Bright accents: sparingly used for emphasis.
 
 ## Dark theme direction
-- Background: near-black/deep charcoal rather than pure black everywhere.
-- Surfaces: slightly lifted charcoal tones.
-- Primary text: soft white/off-white.
-- Green: slightly brighter/lighter versions of the light-theme identity greens.
+- Background: near-black (`#0D0D0E`), not lifted sage grey.
+- Surfaces: slightly lifted (`#161617`) so cards separate from the page.
+- Primary text: warm off-white (`#E5E4E1`).
+- Secondary text: muted warm gray (`#7A7873`).
+- Vermillion: slightly brighter (`#E0522E`) for contrast on near-black.
 - Accents: remain bright but use them on small areas and maintain contrast.
 
 ## Color usage rules
@@ -58,17 +55,15 @@ Do not use purple as a default accent. Avoid multi-color gradients that resemble
 - Do not use a different color for every category unless category recognition is a proven product need.
 
 ## Gradients
-Gradients are allowed for:
-- page backgrounds;
-- subtle hero/summary surfaces;
-- selected ambient highlights;
+Page backgrounds are flat near-neutrals. Gradients are allowed only for:
+- a very quiet hero wash if a single surface needs lift;
 - small decorative transitions.
 
 Rules:
-- Prefer two closely related tones.
+- Prefer two closely related near-neutral tones.
 - Keep contrast low.
 - Never make a gradient the main source of meaning.
-- Avoid purple-blue-pink “AI” gradients.
+- Avoid purple-blue-pink “AI” gradients and sage-green identity washes.
 - Avoid gradients on every card/button.
 
 ## Typography
@@ -155,17 +150,15 @@ Do not force all information into equal visual containers.
 The implementation should define semantic tokens rather than hard-coded colors throughout components.
 
 Example token families:
-- `background`
+- `background` / `page`
 - `surface`
 - `surface-muted`
 - `text-primary`
 - `text-secondary`
 - `border-subtle`
-- `brand-green`
-- `brand-green-soft`
+- `brand` / `accent` (vermillion)
+- `brand-soft` / `accent-tint`
 - `accent-attention`
-- `accent-positive`
-- `accent-info`
 - `danger`
 - `focus-ring`
 

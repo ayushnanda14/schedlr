@@ -1,6 +1,22 @@
 import SwiftUI
 import UIKit
 
+@Observable
+final class AnchorCapturePresentation {
+    var showCapture = false
+}
+
+private struct AnchorUsesTabAccessoryKey: EnvironmentKey {
+    static let defaultValue = false
+}
+
+extension EnvironmentValues {
+    var anchorUsesTabAccessory: Bool {
+        get { self[AnchorUsesTabAccessoryKey.self] }
+        set { self[AnchorUsesTabAccessoryKey.self] = newValue }
+    }
+}
+
 enum AnchorSurfaceKind {
     case hero
     case raised
@@ -10,32 +26,8 @@ enum AnchorSurfaceKind {
 
 struct AnchorScreenBackground: View {
     var body: some View {
-        LinearGradient(
-            colors: [
-                AnchorColor.background,
-                AnchorColor.backgroundWash,
-                AnchorColor.background
-            ],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-        .overlay(alignment: .topTrailing) {
-            Circle()
-                .fill(AnchorColor.brandSoft.opacity(0.55))
-                .frame(width: 240, height: 240)
-                .blur(radius: 48)
-                .offset(x: 70, y: -90)
-                .allowsHitTesting(false)
-        }
-        .overlay(alignment: .bottomLeading) {
-            Circle()
-                .fill(AnchorColor.brand.opacity(0.08))
-                .frame(width: 220, height: 220)
-                .blur(radius: 40)
-                .offset(x: -80, y: 60)
-                .allowsHitTesting(false)
-        }
-        .ignoresSafeArea()
+        AnchorColor.background
+            .ignoresSafeArea()
     }
 }
 
@@ -46,24 +38,20 @@ struct AnchorSurfaceModifier: ViewModifier {
         switch kind {
         case .hero:
             content
-                .background(heroFill)
+                .background(AnchorColor.surface)
                 .overlay(
                     RoundedRectangle(cornerRadius: AnchorRadius.hero, style: .continuous)
-                        .strokeBorder(AnchorColor.brand.opacity(0.18), lineWidth: 1)
+                        .strokeBorder(AnchorColor.border, lineWidth: 1)
                 )
                 .clipShape(RoundedRectangle(cornerRadius: AnchorRadius.hero, style: .continuous))
-                .shadow(color: AnchorColor.brand.opacity(0.12), radius: 18, x: 0, y: 10)
-                .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
         case .raised:
             content
                 .background(AnchorColor.surface)
                 .overlay(
                     RoundedRectangle(cornerRadius: AnchorRadius.surface, style: .continuous)
-                        .strokeBorder(AnchorColor.border.opacity(0.9), lineWidth: 1)
+                        .strokeBorder(AnchorColor.border, lineWidth: 1)
                 )
                 .clipShape(RoundedRectangle(cornerRadius: AnchorRadius.surface, style: .continuous))
-                .shadow(color: Color.black.opacity(0.04), radius: 6, x: 0, y: 3)
-                .shadow(color: AnchorColor.brand.opacity(0.05), radius: 10, x: 0, y: 5)
         case .inset:
             content
                 .background(AnchorColor.surfaceMuted)
@@ -72,23 +60,12 @@ struct AnchorSurfaceModifier: ViewModifier {
             content
         }
     }
-
-    private var heroFill: LinearGradient {
-        LinearGradient(
-            colors: [
-                AnchorColor.brandSoft,
-                AnchorColor.surface
-            ],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-    }
 }
 
 struct AnchorHairline: View {
     var body: some View {
         Rectangle()
-            .fill(AnchorColor.border.opacity(0.7))
+            .fill(AnchorColor.border)
             .frame(height: 1)
     }
 }
@@ -121,7 +98,7 @@ struct StatusPill: View {
     private var foreground: Color {
         switch tone {
         case .neutral: return AnchorColor.textSecondary
-        case .brand: return AnchorColor.brandDeep
+        case .brand: return AnchorColor.brand
         case .attention: return AnchorColor.accentAttention
         }
     }
@@ -137,8 +114,8 @@ struct StatusPill: View {
     private var border: Color {
         switch tone {
         case .neutral: return AnchorColor.border
-        case .brand: return AnchorColor.brand.opacity(0.2)
-        case .attention: return AnchorColor.accentAttention.opacity(0.25)
+        case .brand: return AnchorColor.brand.opacity(0.35)
+        case .attention: return AnchorColor.accentAttention.opacity(0.28)
         }
     }
 }
@@ -149,7 +126,7 @@ struct AnchorSectionLabel: View {
     var body: some View {
         Text(title)
             .font(AnchorFont.section)
-            .foregroundStyle(AnchorColor.textPrimary)
+            .foregroundStyle(AnchorColor.textSecondary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .accessibilityAddTraits(.isHeader)
     }
@@ -164,13 +141,17 @@ struct AnchorCompactActionButton: View {
         Button(action: action) {
             Text(title)
                 .font(AnchorFont.captionEmphasized)
-                .foregroundStyle(isProminent ? AnchorColor.onBrand : AnchorColor.brandDeep)
+                .foregroundStyle(isProminent ? AnchorColor.brand : AnchorColor.textSecondary)
                 .lineLimit(1)
                 .fixedSize(horizontal: true, vertical: false)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 7)
-                .background(isProminent ? AnchorColor.brand : AnchorColor.brandSoft)
+                .background(isProminent ? AnchorColor.brandSoft : AnchorColor.surfaceMuted)
                 .clipShape(Capsule())
+                .overlay(
+                    Capsule()
+                        .strokeBorder(isProminent ? AnchorColor.brand.opacity(0.35) : AnchorColor.border, lineWidth: 1)
+                )
                 .contentShape(Capsule())
         }
         .buttonStyle(.plain)
@@ -195,11 +176,19 @@ extension View {
             .clipShape(RoundedRectangle(cornerRadius: AnchorRadius.chip, style: .continuous))
     }
 
+    func anchorChoiceChip(selected: Bool) -> some View {
+        background(selected ? AnchorColor.brandSoft : AnchorColor.surfaceMuted)
+            .foregroundStyle(selected ? AnchorColor.brand : AnchorColor.textPrimary)
+            .clipShape(Capsule())
+    }
+
     func anchorTabRoot() -> some View {
         self
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(AnchorColor.background, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(AnchorColor.background, for: .tabBar)
+            .toolbarBackground(.visible, for: .tabBar)
             .anchorHardScrollEdge(.bottom)
     }
 
@@ -228,15 +217,17 @@ enum AnchorTheme {
         let brand = AnchorColor.uiBrand
         let background = AnchorColor.uiBackground
         let surface = AnchorColor.uiSurface
+        let muted = AnchorColor.uiSurfaceMuted
         let text = AnchorColor.uiTextPrimary
         let secondary = AnchorColor.uiTextSecondary
 
         UIView.appearance().tintColor = brand
+        UIWindow.appearance().backgroundColor = background
 
         let nav = UINavigationBarAppearance()
         nav.configureWithOpaqueBackground()
         nav.backgroundColor = background
-        nav.shadowColor = AnchorColor.uiBorder.withAlphaComponent(0.4)
+        nav.shadowColor = AnchorColor.uiBorder.withAlphaComponent(0.55)
         nav.titleTextAttributes = [
             .font: AnchorFont.ui("Lato-Bold", size: 18, textStyle: .headline),
             .foregroundColor: text
@@ -254,7 +245,7 @@ enum AnchorTheme {
         let tab = UITabBarAppearance()
         tab.configureWithOpaqueBackground()
         tab.backgroundEffect = nil
-        tab.backgroundColor = surface
+        tab.backgroundColor = background
         tab.shadowColor = AnchorColor.uiBorder
         applyTabItemColors(tab.stackedLayoutAppearance, brand: brand, secondary: secondary)
         applyTabItemColors(tab.inlineLayoutAppearance, brand: brand, secondary: secondary)
@@ -262,18 +253,16 @@ enum AnchorTheme {
         UITabBar.appearance().standardAppearance = tab
         UITabBar.appearance().scrollEdgeAppearance = tab
         UITabBar.appearance().isTranslucent = false
-        UITabBar.appearance().barTintColor = surface
-        UITabBar.appearance().backgroundColor = surface
+        UITabBar.appearance().barTintColor = background
+        UITabBar.appearance().backgroundColor = background
         UITabBar.appearance().tintColor = brand
         UITabBar.appearance().unselectedItemTintColor = secondary
 
-        let onBrand = AnchorColor.ui(light: 0xF7FBF8, dark: 0x102016)
-        let segmentTrack = AnchorColor.ui(light: 0xD5E0D7, dark: 0x242C26)
-        UISegmentedControl.appearance().selectedSegmentTintColor = brand
-        UISegmentedControl.appearance().backgroundColor = segmentTrack
+        UISegmentedControl.appearance().selectedSegmentTintColor = surface
+        UISegmentedControl.appearance().backgroundColor = muted
         UISegmentedControl.appearance().setTitleTextAttributes([
             .font: AnchorFont.ui("Lato-Bold", size: 13, textStyle: .footnote),
-            .foregroundColor: onBrand
+            .foregroundColor: brand
         ], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([
             .font: AnchorFont.ui("Lato-Regular", size: 13, textStyle: .footnote),

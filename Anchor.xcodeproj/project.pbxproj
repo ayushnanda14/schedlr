@@ -19,6 +19,7 @@
 		1613EA9AA636C0CDBADCA7BF /* PeriodicTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E86BE5B60399687B6AB46A /* PeriodicTask.swift */; };
 		1A54B88BA58DBC190C1940CD /* ActivityEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CCFC083B48ECC356452352 /* ActivityEventRepository.swift */; };
 		1B0F04FE4C2EF5CE9627EA5F /* WorkoutProgression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D020FC067B27AC9E5DF105B /* WorkoutProgression.swift */; };
+		1BB8E310C88B01A4224B6DCB /* HistoryInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF6A3BB65F949CD85A846CD /* HistoryInsights.swift */; };
 		1E19CE76265145B518E33384 /* TodayComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5853600ED334E4AB9CE97D4E /* TodayComposer.swift */; };
 		1EAF0C10477CFF4F82032320 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99967C96C92A212B21AEA808 /* Exercise.swift */; };
 		1FABDDA562F1AF56EED3E116 /* QuickCaptureSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AF67DBA9EC14EA23F1C835 /* QuickCaptureSheet.swift */; };
@@ -45,11 +46,13 @@
 		4C9164489DA9764D759B7095 /* UndoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A179A9EB3FA9B38C45F1A /* UndoCoordinator.swift */; };
 		4E9E99719921858F00F4757E /* DailyChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D8BD311C130B7F32C04329 /* DailyChecklistItem.swift */; };
 		50128684DF28A5DAB94F9CB5 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35B0B6DAD4EE4A0A40FED52E /* Lato-Italic.ttf */; };
+		507F6914F410C4C5E1400750 /* HistoryInsightQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710837D33078DA8F09BA4833 /* HistoryInsightQueryTests.swift */; };
 		50CC55286A979EDFA78F7597 /* Calendar+Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8119A4F260A3DE942386AB4A /* Calendar+Day.swift */; };
 		5236826063A2632BA4983012 /* CaptureCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64E248C52C93BC418AF6958 /* CaptureCoordinator.swift */; };
 		52C1F65DF357240B21F4ABA8 /* ScheduleChangePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39101093CD18750B21BAAC5 /* ScheduleChangePreview.swift */; };
 		5C6CC398AB00F678791B80EF /* SuggestionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38565B7484B931559AB075 /* SuggestionCoordinator.swift */; };
 		5CCB58763C2993ADC226C346 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEE9CEB75868FF42B57C059 /* Enums.swift */; };
+		5DE15F1AEE4AB3DE227AC3FB /* HistoryInsightQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF80CE9A8FFDAE4BF994AD4 /* HistoryInsightQuery.swift */; };
 		60FFC2AB0739812B5D258CEF /* ScheduleRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634BE360C917AFE10A7C6736 /* ScheduleRepositoryTests.swift */; };
 		623CC5046FEB3227365971FF /* TodaySnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17752F7DC90C2F15E0A4DF3 /* TodaySnapshot.swift */; };
 		63FBECF7412B2F4AB27F4E27 /* GymDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3C08D540B08057EE7D10DE /* GymDay.swift */; };
@@ -179,10 +182,12 @@
 		6C71F512B63A687E3EED3DC7 /* SuggestionEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionEditSheet.swift; sourceTree = "<group>"; };
 		6DDCA588F066667441C1754E /* ScheduleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRepository.swift; sourceTree = "<group>"; };
 		70CEA33B7B50932EF722E9D5 /* AnchorFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchorFont.swift; sourceTree = "<group>"; };
+		710837D33078DA8F09BA4833 /* HistoryInsightQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInsightQueryTests.swift; sourceTree = "<group>"; };
 		7631D83A1AA507F44B6CD077 /* DurationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationPicker.swift; sourceTree = "<group>"; };
 		789A179A9EB3FA9B38C45F1A /* UndoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoCoordinator.swift; sourceTree = "<group>"; };
 		7E181F61DEE8EEE38736D19B /* TodayGrouping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayGrouping.swift; sourceTree = "<group>"; };
 		7EB5D6F9BCED2FB609688144 /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
+		7FF6A3BB65F949CD85A846CD /* HistoryInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInsights.swift; sourceTree = "<group>"; };
 		803A64CDE8882DB3B53C9A6F /* SuggestionDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionDomain.swift; sourceTree = "<group>"; };
 		8119A4F260A3DE942386AB4A /* Calendar+Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Day.swift"; sourceTree = "<group>"; };
 		82A8EB8CCA0B5B9F854433BC /* UndoAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoAction.swift; sourceTree = "<group>"; };
@@ -243,6 +248,7 @@
 		F6E53506067778EEE62CCEAA /* SetLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLog.swift; sourceTree = "<group>"; };
 		F97260DFF262A25D21B7FF3E /* NotificationActionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationActionRouter.swift; sourceTree = "<group>"; };
 		FACF0273B990731D0FC011D6 /* CaptureCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureCoordinatorTests.swift; sourceTree = "<group>"; };
+		FEF80CE9A8FFDAE4BF994AD4 /* HistoryInsightQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInsightQuery.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -273,6 +279,7 @@
 				FACF0273B990731D0FC011D6 /* CaptureCoordinatorTests.swift */,
 				6A916BC4EC619CBE34767F27 /* CaptureInterpreterTests.swift */,
 				1F2EBF58502335D6E45880A8 /* CompletionUndoTests.swift */,
+				710837D33078DA8F09BA4833 /* HistoryInsightQueryTests.swift */,
 				0018180F9709857495FF6F21 /* NotificationActionRouterTests.swift */,
 				632005038AB29557D3276A79 /* NotificationPlannerTests.swift */,
 				36E11CBBEC95AC9EDD5F79C2 /* ObservationEngineTests.swift */,
@@ -302,6 +309,8 @@
 				547E71BED91A5AA942852EB7 /* CaptureDraft.swift */,
 				88A6D8D1247ED6DD8C1BC030 /* CaptureInterpreter.swift */,
 				A14CDA1833EAF91791EC4A61 /* DurationFormatting.swift */,
+				FEF80CE9A8FFDAE4BF994AD4 /* HistoryInsightQuery.swift */,
+				7FF6A3BB65F949CD85A846CD /* HistoryInsights.swift */,
 				8557829F8B9C7A35F2AB8F9B /* NotificationPlanner.swift */,
 				68A7252ED925BF4A524E090E /* NotificationPlanning.swift */,
 				928A6A1E3F91757AF9C712E6 /* ObservationEngine.swift */,
@@ -579,6 +588,7 @@
 				B382FD81D6B554176C841595 /* CaptureCoordinatorTests.swift in Sources */,
 				D2E04B6BB4DA860107449872 /* CaptureInterpreterTests.swift in Sources */,
 				EB6512A0FD4A1FC626C1E153 /* CompletionUndoTests.swift in Sources */,
+				507F6914F410C4C5E1400750 /* HistoryInsightQueryTests.swift in Sources */,
 				10D8AE6831717440EEFC1660 /* NotificationActionRouterTests.swift in Sources */,
 				E0B089543CD78E41D4D54CB4 /* NotificationPlannerTests.swift in Sources */,
 				87D5EC4562CA0C5A19F6BEE9 /* ObservationEngineTests.swift in Sources */,
@@ -625,6 +635,8 @@
 				9A13609C88C87BEE78200567 /* GymScheduleDay.swift in Sources */,
 				6CDA99B87CAF665665036F7B /* Haptics.swift in Sources */,
 				2100E7B301A2F449D3B078E6 /* HistoryComposer.swift in Sources */,
+				5DE15F1AEE4AB3DE227AC3FB /* HistoryInsightQuery.swift in Sources */,
+				1BB8E310C88B01A4224B6DCB /* HistoryInsights.swift in Sources */,
 				B125D50B5182FE3A5BF1DE26 /* HistoryView.swift in Sources */,
 				E9C0D233E0002112588F10A3 /* InsightsView.swift in Sources */,
 				D5076FB9B562F5789D9C125D /* LocalSwiftDataStore.swift in Sources */,

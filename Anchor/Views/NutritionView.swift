@@ -113,8 +113,10 @@ struct NutritionView: View {
                 Text("kg")
                     .foregroundStyle(AnchorColor.textSecondary)
                 Button("Save") { saveWeight(profile: profile) }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
+                    .frame(minHeight: 44)
                     .disabled(parsedWeight == nil)
+                    .accessibilityIdentifier(AnchorAID.nutritionSave)
             }
         }
         .padding(12)
@@ -142,12 +144,12 @@ struct NutritionView: View {
                         y: .value("kg", entry.weightKg)
                     )
                     .interpolationMethod(.catmullRom)
-                    .foregroundStyle(AnchorColor.brand)
+                    .foregroundStyle(AnchorColor.textPrimary)
                     PointMark(
                         x: .value("Date", entry.date),
                         y: .value("kg", entry.weightKg)
                     )
-                    .foregroundStyle(AnchorColor.brandDeep)
+                    .foregroundStyle(AnchorColor.brand)
                 }
                 .chartYAxisLabel("kg")
                 .frame(height: 200)

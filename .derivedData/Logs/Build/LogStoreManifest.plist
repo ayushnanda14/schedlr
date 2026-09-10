@@ -6,7 +6,7 @@
 	<integer>12</integer>
 	<key>logs</key>
 	<dict>
-		<key>6A42AC19-2139-4C2D-B873-8B8BA0C6C0B0</key>
+		<key>6324CC27-8026-4B1C-8C03-22A385167E6A</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>6A42AC19-2139-4C2D-B873-8B8BA0C6C0B0.xcactivitylog</string>
+			<string>6324CC27-8026-4B1C-8C03-22A385167E6A.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -38,17 +38,17 @@
 			<key>schemeIdentifier-sharedScheme</key>
 			<integer>1</integer>
 			<key>signature</key>
-			<string>Testing project Anchor with scheme Anchor</string>
+			<string>Building project Anchor with scheme Anchor</string>
 			<key>timeStartedRecording</key>
-			<real>810744225.29807997</real>
+			<real>810768385.64765298</real>
 			<key>timeStoppedRecording</key>
-			<real>810744230.36228597</real>
+			<real>810768394.00141597</real>
 			<key>title</key>
-			<string>Testing project Anchor with scheme Anchor</string>
+			<string>Building project Anchor with scheme Anchor</string>
 			<key>uniqueIdentifier</key>
-			<string>6A42AC19-2139-4C2D-B873-8B8BA0C6C0B0</string>
+			<string>6324CC27-8026-4B1C-8C03-22A385167E6A</string>
 		</dict>
-		<key>82F2BE14-321A-4C88-B633-A5049E1C0A8C</key>
+		<key>CC76F780-C757-4391-A82F-200A4E15F766</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -57,7 +57,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>82F2BE14-321A-4C88-B633-A5049E1C0A8C.xcactivitylog</string>
+			<string>CC76F780-C757-4391-A82F-200A4E15F766.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -82,181 +82,13 @@
 			<key>signature</key>
 			<string>Testing project Anchor with scheme Anchor</string>
 			<key>timeStartedRecording</key>
-			<real>810744531.92451704</real>
+			<real>810768401.41766095</real>
 			<key>timeStoppedRecording</key>
-			<real>810744538.65239799</real>
+			<real>810768405.22753406</real>
 			<key>title</key>
 			<string>Testing project Anchor with scheme Anchor</string>
 			<key>uniqueIdentifier</key>
-			<string>82F2BE14-321A-4C88-B633-A5049E1C0A8C</string>
-		</dict>
-		<key>9C800252-4090-40A2-97CA-16E00EB4E1B7</key>
-		<dict>
-			<key>className</key>
-			<string>IDECommandLineBuildLog</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>9C800252-4090-40A2-97CA-16E00EB4E1B7.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Anchor project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Anchor</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Testing project Anchor with scheme Anchor</string>
-			<key>timeStartedRecording</key>
-			<real>810744296.81764698</real>
-			<key>timeStoppedRecording</key>
-			<real>810744303.437307</real>
-			<key>title</key>
-			<string>Testing project Anchor with scheme Anchor</string>
-			<key>uniqueIdentifier</key>
-			<string>9C800252-4090-40A2-97CA-16E00EB4E1B7</string>
-		</dict>
-		<key>C985FC89-807A-4F32-96A5-93B680118EBE</key>
-		<dict>
-			<key>className</key>
-			<string>IDECommandLineBuildLog</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>C985FC89-807A-4F32-96A5-93B680118EBE.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Anchor project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Anchor</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Testing project Anchor with scheme Anchor</string>
-			<key>timeStartedRecording</key>
-			<real>810744546.36166799</real>
-			<key>timeStoppedRecording</key>
-			<real>810744547.20986795</real>
-			<key>title</key>
-			<string>Testing project Anchor with scheme Anchor</string>
-			<key>uniqueIdentifier</key>
-			<string>C985FC89-807A-4F32-96A5-93B680118EBE</string>
-		</dict>
-		<key>DF243BC7-EE9B-4D97-8202-5125D6E0A7C1</key>
-		<dict>
-			<key>className</key>
-			<string>IDECommandLineBuildLog</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>DF243BC7-EE9B-4D97-8202-5125D6E0A7C1.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Anchor project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Anchor</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Testing project Anchor with scheme Anchor</string>
-			<key>timeStartedRecording</key>
-			<real>810744443.80700803</real>
-			<key>timeStoppedRecording</key>
-			<real>810744453.991238</real>
-			<key>title</key>
-			<string>Testing project Anchor with scheme Anchor</string>
-			<key>uniqueIdentifier</key>
-			<string>DF243BC7-EE9B-4D97-8202-5125D6E0A7C1</string>
-		</dict>
-		<key>F6692F76-F5FE-4D74-BFEF-6F6482487FCB</key>
-		<dict>
-			<key>className</key>
-			<string>IDECommandLineBuildLog</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>F6692F76-F5FE-4D74-BFEF-6F6482487FCB.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Anchor project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Anchor</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Testing project Anchor with scheme Anchor</string>
-			<key>timeStartedRecording</key>
-			<real>810744371.92268503</real>
-			<key>timeStoppedRecording</key>
-			<real>810744378.21582198</real>
-			<key>title</key>
-			<string>Testing project Anchor with scheme Anchor</string>
-			<key>uniqueIdentifier</key>
-			<string>F6692F76-F5FE-4D74-BFEF-6F6482487FCB</string>
+			<string>CC76F780-C757-4391-A82F-200A4E15F766</string>
 		</dict>
 	</dict>
 </dict>

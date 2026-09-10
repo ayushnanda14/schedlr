@@ -55,11 +55,14 @@ struct InsightsView: View {
                 ForEach(observations) { observation in
                     VStack(alignment: .leading, spacing: 4) {
                         Text(observation.kind.displayName)
+                            .font(AnchorFont.bodyEmphasized)
+                            .foregroundStyle(AnchorColor.textPrimary)
                         Text(observation.reason)
-                            .font(.subheadline)
+                            .font(AnchorFont.subheadline)
+                            .foregroundStyle(AnchorColor.textPrimary)
                         Text("\(observation.confidence.displayName). \(observation.confidenceCopy)")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(AnchorFont.caption)
+                            .foregroundStyle(AnchorColor.textSecondary)
                     }
                     .accessibilityElement(children: .combine)
                 }
@@ -81,10 +84,12 @@ struct InsightsView: View {
                 ForEach(preferences, id: \.persistentModelID) { preference in
                     VStack(alignment: .leading, spacing: 8) {
                         Text(preference.key.displayName)
+                            .font(AnchorFont.bodyEmphasized)
+                            .foregroundStyle(AnchorColor.textPrimary)
                         if !preference.explanation.isEmpty {
                             Text(preference.explanation)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .font(AnchorFont.caption)
+                                .foregroundStyle(AnchorColor.textSecondary)
                         }
                         Button("Reset", role: .destructive) {
                             coordinator.resetPreference(preference.key)

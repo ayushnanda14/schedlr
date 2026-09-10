@@ -13,7 +13,7 @@ struct SmartSuggestionCard: View {
                 .foregroundStyle(AnchorColor.textPrimary)
             HStack(spacing: 8) {
                 Button("Review", action: onReview)
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
                     .frame(minHeight: 44)
                     .accessibilityIdentifier("proposal.review")
                 Button("Dismiss", action: onDismiss)

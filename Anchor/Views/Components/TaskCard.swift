@@ -66,6 +66,7 @@ struct TaskCard: View {
         .buttonStyle(.plain)
         .accessibilityLabel(title)
         .accessibilityValue(accessibilityValue)
+        .accessibilityHint(isComplete ? "Marks as not done" : "Marks as done")
         .accessibilityAddTraits(isComplete ? [.isButton, .isSelected] : .isButton)
     }
 
@@ -88,7 +89,8 @@ struct TaskCard: View {
     private var iconColor: Color {
         if isComplete { return AnchorColor.textSecondary }
         if isSevere { return AnchorColor.accentAttention }
-        return AnchorColor.brand
+        if prominence == .primary { return AnchorColor.brand }
+        return AnchorColor.textSecondary
     }
 
     private var checkColor: Color {

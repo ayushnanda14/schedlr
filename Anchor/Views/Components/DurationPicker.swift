@@ -20,9 +20,7 @@ struct DurationPicker: View {
                                 .font(.caption)
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 6)
-                                .background(minutes == preset ? AnchorColor.brand : AnchorColor.surfaceMuted)
-                                .foregroundStyle(minutes == preset ? AnchorColor.onBrand : AnchorColor.textPrimary)
-                                .clipShape(Capsule())
+                                .anchorChoiceChip(selected: minutes == preset)
                         }
                         .buttonStyle(.plain)
                         .accessibilityLabel(DurationFormatting.string(preset))

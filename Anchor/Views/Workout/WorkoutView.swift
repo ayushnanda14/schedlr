@@ -89,7 +89,7 @@ struct WorkoutView: View {
                     .padding(.horizontal, 16)
                     .padding(.top, 8)
                     .padding(.bottom, 8)
-                    .background(AnchorColor.surface)
+                    .background(AnchorColor.background)
                 }
             }
             .onAppear { syncNotes() }
@@ -169,7 +169,7 @@ struct WorkoutView: View {
             Button("Logged a deload") {
                 markDeload()
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.bordered)
             .controlSize(.small)
         }
         .padding(12)

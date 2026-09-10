@@ -167,9 +167,11 @@ struct SettingsView: View {
             } label: {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Learned assumptions")
+                        .font(AnchorFont.bodyEmphasized)
+                        .foregroundStyle(AnchorColor.textPrimary)
                     Text("Inspect evidence and reset experiments")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(AnchorFont.caption)
+                        .foregroundStyle(AnchorColor.textSecondary)
                 }
             }
             .accessibilityIdentifier("settings.insights")

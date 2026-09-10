@@ -399,6 +399,48 @@ final class LocalSwiftDataStore: DataStore {
         return composer.compose(facts, filter: filter)
     }
 
+    func historySnapshot(range: HistoryRange, filter: HistoryFilter) -> HistoryInsightSnapshot {
+        let facts = fetchHistory(filter: .all)
+        let interval = range.interval(now: clock.now, calendar: clock.calendar)
+        let cadence = fetch(PeriodicTask.self)
+            .filter { !$0.isDeleted }
+            .map { task in
+                HistoryCadenceInput(
+                    id: task.id,
+                    title: task.title,
+                    cadenceDays: task.cadenceDays,
+                    lastCompleted: task.lastCompletedDate,
+                    datesInRange: completionDates(forTaskID: task.id).filter { interval.contains($0) }
+                )
+            }
+        let workouts = fetch(WorkoutSession.self)
+            .filter { !$0.isDeleted }
+            .flatMap { session in
+                session.setLogs.filter { !$0.isDeleted }.map { set in
+                    HistoryWorkoutSample(
+                        exerciseName: set.exerciseName,
+                        date: session.date,
+                        weightKg: set.weightKg,
+                        reps: set.reps
+                    )
+                }
+            }
+        let weights = fetch(WeightEntry.self)
+            .filter { !$0.isDeleted }
+            .map { HistoryWeightSample(date: $0.date, weightKg: $0.weightKg) }
+        let observations = SuggestionCoordinator(store: self).currentObservations()
+        return HistoryInsightQuery(calendar: clock.calendar).snapshot(
+            facts: facts,
+            range: range,
+            filter: filter,
+            now: clock.now,
+            cadence: cadence,
+            workouts: workouts,
+            weights: weights,
+            observations: observations
+        )
+    }
+
     private func scheduleTitle(
         for block: TimeBlock?,
         activities: [UUID: Activity],

@@ -27,6 +27,7 @@ struct RootView: View {
                     .background(AnchorScreenBackground())
             }
         }
+        .background(AnchorColor.background.ignoresSafeArea())
         .onAppear {
             if store == nil {
                 store = LocalSwiftDataStore(context: modelContext)

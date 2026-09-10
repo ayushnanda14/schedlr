@@ -112,9 +112,40 @@ enum HistoryFilter: String, CaseIterable, Identifiable {
         case .all: return "All"
         case .gym: return "Gym"
         case .skincare: return "Skincare"
-        case .periodicTasks: return "Periodic Tasks"
+        case .periodicTasks: return "House"
         case .weight: return "Weight"
         case .schedule: return "Schedule"
         }
+    }
+}
+
+enum HistoryRange: String, CaseIterable, Identifiable, Equatable, Sendable {
+    case sevenDays
+    case fourWeeks
+    case twelveWeeks
+
+    var id: String { rawValue }
+
+    var dayCount: Int {
+        switch self {
+        case .sevenDays: return 7
+        case .fourWeeks: return 28
+        case .twelveWeeks: return 84
+        }
+    }
+
+    var displayName: String {
+        switch self {
+        case .sevenDays: return "7 days"
+        case .fourWeeks: return "4 weeks"
+        case .twelveWeeks: return "12 weeks"
+        }
+    }
+
+    func interval(now: Date, calendar: Calendar) -> DateInterval {
+        let dayStart = calendar.startOfDay(for: now)
+        let end = calendar.date(byAdding: .day, value: 1, to: dayStart) ?? now
+        let start = calendar.date(byAdding: .day, value: -(dayCount - 1), to: dayStart) ?? dayStart
+        return DateInterval(start: start, end: end)
     }
 }

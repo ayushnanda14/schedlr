@@ -8,6 +8,8 @@ struct TodayView: View {
     @Environment(LocalSwiftDataStore.self) private var store
     @Environment(UndoCoordinator.self) private var undoCoordinator
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.anchorUsesTabAccessory) private var usesTabAccessory
+    @Environment(AnchorCapturePresentation.self) private var capture
 
     @Query(filter: #Predicate<UserProfile> { $0.isDeleted == false }) private var profiles: [UserProfile]
     @Query(
@@ -30,7 +32,6 @@ struct TodayView: View {
     ) private var sessions: [WorkoutSession]
 
     @State private var gymExpanded = false
-    @State private var showCapture = false
     @State private var captureNotice: String?
     @State private var editingItem: TodayTimelineItem?
     @State private var activeProposal: PlanProposal?
@@ -80,7 +81,7 @@ struct TodayView: View {
                                             captureNotice = "Nothing needs to move."
                                         }
                                     }
-                                    .buttonStyle(.borderedProminent)
+                                    .buttonStyle(.bordered)
                                     .frame(minHeight: 44)
                                     .accessibilityIdentifier("pressure.replan")
                                 }
@@ -151,6 +152,7 @@ struct TodayView: View {
                         Image(systemName: "clock")
                     }
                     .accessibilityLabel("History")
+                    .accessibilityIdentifier(AnchorAID.todayHistory)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -162,11 +164,11 @@ struct TodayView: View {
                 }
             }
             .safeAreaInset(edge: .bottom) {
-                if profile != nil {
-                    bottomBar
+                if profile != nil, !usesTabAccessory {
+                    TodayBottomBar()
                 }
             }
-            .sheet(isPresented: $showCapture) {
+            .sheet(isPresented: Bindable(capture).showCapture) {
                 QuickCaptureSheet(store: store) { confirmation in
                     handleScheduleMutation(confirmation)
                 }
@@ -297,9 +299,9 @@ struct TodayView: View {
                         .font(AnchorFont.subheadline)
                         .foregroundStyle(AnchorColor.textSecondary)
                     Button("Add to today") {
-                        showCapture = true
+                        capture.showCapture = true
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
                     .frame(minHeight: 44)
                     .accessibilityIdentifier("today.emptyCapture")
                 }
@@ -347,7 +349,7 @@ struct TodayView: View {
 
                 Image(systemName: icon(for: item.kind))
                     .font(AnchorFont.subheadlineEmphasized)
-                    .foregroundStyle(AnchorColor.brand)
+                    .foregroundStyle(prominence == .now ? AnchorColor.brand : AnchorColor.textSecondary)
                     .frame(width: 22, height: 44)
                     .accessibilityHidden(true)
 
@@ -414,12 +416,8 @@ struct TodayView: View {
 
     private func railColor(for kind: TodayTimelineItem.Kind, prominence: TimelineProminence) -> Color {
         if prominence == .now { return AnchorColor.brand }
-        switch kind {
-        case .fixedCommitment: return AnchorColor.brand
-        case .taskBlock: return AnchorColor.accentInfo
-        case .buffer: return AnchorColor.border
-        case .dayException: return AnchorColor.accentAttention
-        }
+        if kind == .dayException { return AnchorColor.accentAttention }
+        return AnchorColor.border
     }
 
     @ViewBuilder
@@ -443,7 +441,7 @@ struct TodayView: View {
                 if item.timeBlockID != nil {
                     Button("Done") { completeTimelineItem(item) }
                         .font(AnchorFont.subheadlineEmphasized)
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(.bordered)
                         .frame(minHeight: 44)
                         .accessibilityIdentifier("today.completeCurrent")
                 }
@@ -499,68 +497,6 @@ struct TodayView: View {
         ProposalCoordinator(repository: store, clock: store.clock)
             .currentPressure(now: now)
             .summary
-    }
-
-    private var bottomBar: some View {
-        HStack(alignment: .center, spacing: 12) {
-            if let profile, profile.currentMode != .away {
-                lateNightBar(profile: profile)
-            } else {
-                Spacer(minLength: 0)
-            }
-            Button {
-                showCapture = true
-            } label: {
-                Image(systemName: "plus")
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(AnchorColor.onBrand)
-                    .frame(width: 52, height: 52)
-                    .background(AnchorColor.brand)
-                    .clipShape(Circle())
-                    .shadow(color: AnchorColor.brand.opacity(0.35), radius: 10, x: 0, y: 4)
-            }
-            .accessibilityLabel("Add to today")
-            .accessibilityIdentifier("today.add")
-        }
-        .padding(.horizontal, 16)
-        .padding(.top, 10)
-        .padding(.bottom, 8)
-        .background(
-            AnchorColor.surface
-                .shadow(color: Color.black.opacity(0.06), radius: 12, y: -4)
-                .ignoresSafeArea()
-        )
-        .overlay(alignment: .top) { AnchorHairline() }
-    }
-
-    private func lateNightBar(profile: UserProfile) -> some View {
-        Toggle(isOn: Binding(
-            get: { profile.lateNightModeActiveToday },
-            set: { isOn in
-                if isOn {
-                    profile.activateLateNightMode()
-                } else {
-                    profile.lateNightModeActiveToday = false
-                    profile.lateNightActivatedOn = nil
-                    profile.markDirty()
-                }
-                try? modelContext.save()
-                refreshNotifications()
-            }
-        )) {
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Running late tonight")
-                    .font(AnchorFont.subheadlineEmphasized)
-                    .foregroundStyle(AnchorColor.textPrimary)
-                if profile.lateNightModeActiveToday {
-                    Text("Evening list is abbreviated.")
-                        .font(AnchorFont.caption)
-                        .foregroundStyle(AnchorColor.textSecondary)
-                }
-            }
-        }
-        .tint(AnchorColor.brand)
-        .padding(.vertical, 4)
     }
 
     private func handleScheduleMutation(_ confirmation: CaptureConfirmation) {
@@ -689,6 +625,71 @@ struct TodayView: View {
 
     private func refreshNotifications() {
         NotificationScheduler.refreshSoon(context: modelContext)
+    }
+}
+
+struct TodayBottomBar: View {
+    @Environment(\.modelContext) private var modelContext
+    @Environment(AnchorCapturePresentation.self) private var capture
+    @Query(filter: #Predicate<UserProfile> { $0.isDeleted == false }) private var profiles: [UserProfile]
+
+    private var profile: UserProfile? { profiles.first }
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 12) {
+            if let profile, profile.currentMode != .away {
+                lateNightBar(profile: profile)
+            } else {
+                Spacer(minLength: 0)
+            }
+            Button {
+                capture.showCapture = true
+            } label: {
+                Image(systemName: "plus")
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(AnchorColor.onBrand)
+                    .frame(width: 38, height: 38)
+                    .background(AnchorColor.brand)
+                    .clipShape(Circle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Add to today")
+            .accessibilityIdentifier(AnchorAID.todayAdd)
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
+        .padding(.bottom, 8)
+    }
+
+    private func lateNightBar(profile: UserProfile) -> some View {
+        Toggle(isOn: Binding(
+            get: { profile.lateNightModeActiveToday },
+            set: { isOn in
+                if isOn {
+                    profile.activateLateNightMode()
+                } else {
+                    profile.lateNightModeActiveToday = false
+                    profile.lateNightActivatedOn = nil
+                    profile.markDirty()
+                }
+                try? modelContext.save()
+                NotificationScheduler.refreshSoon(context: modelContext)
+            }
+        )) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Running late tonight")
+                    .font(AnchorFont.subheadlineEmphasized)
+                    .foregroundStyle(AnchorColor.textPrimary)
+                if profile.lateNightModeActiveToday {
+                    Text("Evening list is abbreviated.")
+                        .font(AnchorFont.caption)
+                        .foregroundStyle(AnchorColor.textSecondary)
+                }
+            }
+        }
+        .tint(AnchorColor.brand)
+        .padding(.vertical, 6)
+        .accessibilityHint("Moves leftover evening items out of the current list")
     }
 }
 

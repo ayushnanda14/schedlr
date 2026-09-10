@@ -23,7 +23,7 @@ struct EvidenceSuggestionCard: View {
                 .foregroundStyle(AnchorColor.textSecondary)
             HStack(spacing: 8) {
                 Button("Try it", action: onTry)
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
                     .frame(minHeight: 44)
                     .accessibilityIdentifier("evidence.try")
                 Button("Edit", action: onEdit)

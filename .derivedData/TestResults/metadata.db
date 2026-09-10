@@ -13,37 +13,37 @@
 				<key>testAllDayTravelOccupiesTheUsableWindow</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0016499757766723633</real>
+					<real>0.0020509958267211914</real>
 				</dict>
 				<key>testBuffersAreNotConsumedAccidentally</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0010720491409301758</real>
+					<real>0.001813054084777832</real>
 				</dict>
 				<key>testLateEventBeforeEarlyGymDoesNotConsumeGym</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00077497959136962891</real>
+					<real>0.00089502334594726562</real>
 				</dict>
 				<key>testNormalDayIsFeasible</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00067996978759765625</real>
+					<real>0.012598991394042969</real>
 				</dict>
 				<key>testOversubscribedEvening</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0010640621185302734</real>
+					<real>0.00092291831970214844</real>
 				</dict>
 				<key>testTightDayLeavesLittleRoomAfterBuffers</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00093293190002441406</real>
+					<real>0.00071191787719726562</real>
 				</dict>
 				<key>testTimeZoneBoundaryKeepsIntervalPositive</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0023310184478759766</real>
+					<real>0.0013259649276733398</real>
 				</dict>
 			</dict>
 			<key>CaptureCoordinatorTests</key>
@@ -51,47 +51,47 @@
 				<key>testAmbiguousDraftRequiresAnExplicitChoice</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.012807011604309082</real>
+					<real>0.01933598518371582</real>
 				</dict>
 				<key>testConfirmingAnExceptionOccupiesTimeWithoutCreatingAnActivity</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.013815045356750488</real>
+					<real>0.018481016159057617</real>
 				</dict>
 				<key>testConfirmingFlexibleTaskWithoutTimeDoesNotCreateBlock</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.015584111213684082</real>
+					<real>0.017592072486877441</real>
 				</dict>
 				<key>testConfirmingTimedCommitmentCreatesLockedBlock</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.025297999382019043</real>
+					<real>0.040619015693664551</real>
 				</dict>
 				<key>testOverlapWarningDoesNotBlockSave</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.015282034873962402</real>
+					<real>0.018832921981811523</real>
 				</dict>
 				<key>testRemovingACapturedItemHidesIt</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.013046979904174805</real>
+					<real>0.015609979629516602</real>
 				</dict>
 				<key>testTravelExceptionDoesNotSwitchRoutineMode</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.015929937362670898</real>
+					<real>0.016713976860046387</real>
 				</dict>
 				<key>testUpdatingACommitmentChangesTitleAndTime</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.014903903007507324</real>
+					<real>0.017992973327636719</real>
 				</dict>
 				<key>testUpdatingAndRemovingAnException</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.012835025787353516</real>
+					<real>0.015925049781799316</real>
 				</dict>
 			</dict>
 			<key>CaptureInterpreterTests</key>
@@ -99,42 +99,42 @@
 				<key>testAmbiguousTimedItemWithoutKeywords</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0010010004043579102</real>
+					<real>0.0008869171142578125</real>
 				</dict>
 				<key>testEmptyInput</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00060701370239257812</real>
+					<real>0.00078701972961425781</real>
 				</dict>
 				<key>testInvalidWhenOnlyTimeTokensRemain</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0011370182037353516</real>
+					<real>0.00095403194427490234</real>
 				</dict>
 				<key>testParsesTimedCommitment</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00096499919891357422</real>
+					<real>0.0010819435119628906</real>
 				</dict>
 				<key>testPreservesExceptionKindWhileEditingTitle</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0010190010070800781</real>
+					<real>0.0019700527191162109</real>
 				</dict>
 				<key>testPreservesUserEditedIntentWhenTextChanges</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0012940168380737305</real>
+					<real>0.0015050172805786133</real>
 				</dict>
 				<key>testUntimedHouseWorkBecomesFlexibleTask</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00086998939514160156</real>
+					<real>0.0010600090026855469</real>
 				</dict>
 				<key>testWeekdayAndPriorityAndDeadline</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00089490413665771484</real>
+					<real>0.0012010335922241211</real>
 				</dict>
 			</dict>
 			<key>CompletionUndoTests</key>
@@ -142,17 +142,75 @@
 				<key>testChecklistToggleUndoSoftDeletesTodaysEvent</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.015729069709777832</real>
+					<real>0.023422002792358398</real>
 				</dict>
 				<key>testDuplicatePeriodicCompletionDoesNotCreateASecondEvent</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.013972997665405273</real>
+					<real>0.016960024833679199</real>
 				</dict>
 				<key>testUndoRestoresPeriodicTaskAndSoftDeletesTheEvent</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.016209006309509277</real>
+					<real>0.018792033195495605</real>
+				</dict>
+			</dict>
+			<key>HistoryInsightQueryTests</key>
+			<dict>
+				<key>testAccessibilityIdentifiersStayStable</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00077807903289794922</real>
+				</dict>
+				<key>testCadenceCopyIsObservational</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.0013840198516845703</real>
+				</dict>
+				<key>testCategorySummariesOmitZeros</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00066804885864257812</real>
+				</dict>
+				<key>testEmptyCopyDependsOnFilterAndHistory</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00073695182800292969</real>
+				</dict>
+				<key>testRangeExcludesOlderFacts</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.0010039806365966797</real>
+				</dict>
+				<key>testReflectionsPreferObservationsAndCapAtThree</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.0084040164947509766</real>
+				</dict>
+				<key>testSameTopWeightCopy</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.004841923713684082</real>
+				</dict>
+				<key>testScheduleSummaryAndCorrectionReflection</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00071191787719726562</real>
+				</dict>
+				<key>testStoreSnapshotUsesClockRange</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.019446015357971191</real>
+				</dict>
+				<key>testWeightTrendRequiresMeaningfulChange</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00074005126953125</real>
+				</dict>
+				<key>testWorkoutProgressionNeedsTwoSessions</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00059604644775390625</real>
 				</dict>
 			</dict>
 			<key>NotificationActionRouterTests</key>
@@ -160,17 +218,17 @@
 				<key>testDoneCompletesAPeriodicTask</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.014443039894104004</real>
+					<real>0.01757502555847168</real>
 				</dict>
 				<key>testDuplicateDoneIsIdempotent</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.016023993492126465</real>
+					<real>0.019255995750427246</real>
 				</dict>
 				<key>testSnoozeReturnsALaterFireDate</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.011312007904052734</real>
+					<real>0.014785051345825195</real>
 				</dict>
 			</dict>
 			<key>NotificationPlannerTests</key>
@@ -178,47 +236,115 @@
 				<key>testAwayKeepsBedtimeAndDropsGymMovementAndTasks</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0011410713195800781</real>
+					<real>0.00088000297546386719</real>
 				</dict>
 				<key>testBatchingReducesMovementCount</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0026029348373413086</real>
+					<real>0.0026520490646362305</real>
 				</dict>
 				<key>testMaxPendingDropsMovementFirst</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0028690099716186523</real>
+					<real>0.0024279356002807617</real>
 				</dict>
 				<key>testMultipleDueTasksAreBatched</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0033060312271118164</real>
+					<real>0.0034919977188110352</real>
 				</dict>
 				<key>testQuietHoursMoveGymPastTheBoundary</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00083291530609130859</real>
+					<real>0.00087296962738037109</real>
 				</dict>
 				<key>testSingleDueTaskStaysActionable</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00072598457336425781</real>
+					<real>0.00063693523406982422</real>
 				</dict>
 				<key>testSnoozeSkipsQuietHours</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00055801868438720703</real>
+					<real>0.00051295757293701172</real>
 				</dict>
 				<key>testStaleIdentifiersKeepSnoozes</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00073301792144775391</real>
+					<real>0.00056600570678710938</real>
 				</dict>
 				<key>testTimeZoneKeepsLocalGymHour</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00073409080505371094</real>
+					<real>0.00073897838592529297</real>
+				</dict>
+			</dict>
+			<key>ObservationEngineTests</key>
+			<dict>
+				<key>testAcceptedPreferenceAndDisabledTypeAreSkipped</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.0014280080795288086</real>
+				</dict>
+				<key>testContradictoryEveningGymBlocksObservation</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00081598758697509766</real>
+				</dict>
+				<key>testEveningPressureAgesOutWithoutARecentEvening</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00062298774719238281</real>
+				</dict>
+				<key>testEveningPressureThresholdAndCopy</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00086605548858642578</real>
+				</dict>
+				<key>testGymBelowThresholdDoesNotQualify</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00075805187225341797</real>
+				</dict>
+				<key>testGymEvidenceAgesOutWhenNothingRecent</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00055396556854248047</real>
+				</dict>
+				<key>testGymThresholdAndCopy</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00076794624328613281</real>
+				</dict>
+				<key>testHighestConfidenceWinsAndOnlyOneSuggestionIsReturned</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00068795680999755859</real>
+				</dict>
+				<key>testLightContraryGymStillQualifiesAtLowOrModerateConfidence</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.011008024215698242</real>
+				</dict>
+				<key>testOldEveningGymDoesNotCountAsContrary</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.0026400089263916016</real>
+				</dict>
+				<key>testRecentCompletionsSuppressSnoozeObservation</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.0010769367218017578</real>
+				</dict>
+				<key>testSnoozeThresholdAndCopy</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.00074398517608642578</real>
+				</dict>
+				<key>testSuggestionEngineSuppressesUntilExpiry</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.02809596061706543</real>
 				</dict>
 			</dict>
 			<key>PlannerEngineTests</key>
@@ -226,27 +352,27 @@
 				<key>testDefersWhenNoRoomRemainsToday</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00072801113128662109</real>
+					<real>0.00068700313568115234</real>
 				</dict>
 				<key>testMovesFlexibleTaskAfterLockedCommitment</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.0032069683074951172</real>
+					<real>0.00061309337615966797</real>
 				</dict>
 				<key>testNeverMovesLockedCommitment</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00076508522033691406</real>
+					<real>0.00073599815368652344</real>
 				</dict>
 				<key>testOnlyChangesTheOverlappingFlexibleItem</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00068593025207519531</real>
+					<real>0.00096297264099121094</real>
 				</dict>
 				<key>testReturnsNilWhenNothingOverlaps</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.00056004524230957031</real>
+					<real>0.00080704689025878906</real>
 				</dict>
 				<key>testThirtyMinuteTaskDoesNotFitFortyMinuteGap</key>
 				<dict>
@@ -259,7 +385,50 @@
 				<key>testApplyMovesFlexibleTaskThenUndoRestoresIt</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.019302964210510254</real>
+					<real>0.027325987815856934</real>
+				</dict>
+			</dict>
+			<key>RoutineHistoryTests</key>
+			<dict>
+				<key>testActivityCompletionHidesCurrentBlockAndIsIdempotent</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.024734020233154297</real>
+				</dict>
+				<key>testCurrentActivityCorrectionWritesPlannedVersusActual</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.02555394172668457</real>
+				</dict>
+				<key>testDayScopedFlagParse</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.01556706428527832</real>
+				</dict>
+				<key>testHistoryComposerMapsMovedAndDeferred</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.016891956329345703</real>
+				</dict>
+				<key>testHistoryIncludesMovedAndDeferredScheduleChanges</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.022825956344604492</real>
+				</dict>
+				<key>testRoutineCompletionIsIdempotentAndSurvivesRelaunch</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.025835037231445312</real>
+				</dict>
+				<key>testRoutineUndoSoftDeletesTodaysEvent</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.024446964263916016</real>
+				</dict>
+				<key>testUserDefaultsBackfillCreatesOneEventPerDay</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.02946007251739502</real>
 				</dict>
 			</dict>
 			<key>ScheduleRepositoryTests</key>
@@ -267,32 +436,60 @@
 				<key>testCalendarHandlesDaylightSavingBoundary</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.010035037994384766</real>
+					<real>0.014069080352783203</real>
 				</dict>
 				<key>testCreatesFixedCommitmentAndAuditsTheNewBlock</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.013998985290527344</real>
+					<real>0.016301989555358887</real>
 				</dict>
 				<key>testCreatesUpdatesAndSoftDeletesDayExceptions</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.012309074401855469</real>
+					<real>0.015035033226013184</real>
 				</dict>
 				<key>testOnlyReturnsBlocksThatOverlapTheRequestedInterval</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.012975096702575684</real>
+					<real>0.017517924308776855</real>
 				</dict>
 				<key>testRejectsACommitmentWithoutAnActivity</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.010565996170043945</real>
+					<real>0.013538956642150879</real>
 				</dict>
 				<key>testSoftDeleteHidesScheduleRecordAndSetsPendingDelete</key>
 				<dict>
 					<key>mrnet</key>
-					<real>0.011796951293945312</real>
+					<real>0.014378070831298828</real>
+				</dict>
+			</dict>
+			<key>SuggestionCoordinatorTests</key>
+			<dict>
+				<key>testAcceptChangesGymHourAndUndoRestoresIt</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.04295194149017334</real>
+				</dict>
+				<key>testDisabledTypeIsNotSuggested</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.023692011833190918</real>
+				</dict>
+				<key>testDismissedSuggestionDoesNotReturnUntilSuppressionExpires</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.042819976806640625</real>
+				</dict>
+				<key>testEditedSnoozeAcceptPersistsAndCanBeReset</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.028993964195251465</real>
+				</dict>
+				<key>testEveningPressureAcceptsWithoutMovingTheSchedule</key>
+				<dict>
+					<key>mrnet</key>
+					<real>0.026257038116455078</real>
 				</dict>
 			</dict>
 		</dict>

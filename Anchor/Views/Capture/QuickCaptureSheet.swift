@@ -5,6 +5,7 @@ struct QuickCaptureSheet: View {
     var onSaved: (CaptureConfirmation) -> Void
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var text = ""
     @State private var draft: CaptureDraft?
@@ -69,7 +70,7 @@ struct QuickCaptureSheet: View {
                 .onChange(of: focus) { _, newValue in
                     guard let newValue else { return }
                     DispatchQueue.main.async {
-                        withAnimation(.easeInOut(duration: 0.2)) {
+                        withAnimation(AnchorMotion.fade(reduceMotion)) {
                             proxy.scrollTo(newValue, anchor: .center)
                         }
                     }
@@ -77,8 +78,8 @@ struct QuickCaptureSheet: View {
                 .onChange(of: showingDetails) { _, showing in
                     dismissKeyboard()
                     guard showing else { return }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        withAnimation(.easeInOut(duration: 0.2)) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + (reduceMotion ? 0 : 0.2)) {
+                        withAnimation(AnchorMotion.fade(reduceMotion)) {
                             proxy.scrollTo("captureDetails", anchor: .bottom)
                         }
                     }
@@ -114,7 +115,7 @@ struct QuickCaptureSheet: View {
                                 dismissKeyboard()
                                 save(intent: .commitment)
                             }
-                            .buttonStyle(.borderedProminent)
+                            .buttonStyle(.bordered)
                             .disabled(draft.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                             .accessibilityIdentifier("capture.saveCommitment")
                             Button("Save as task") {
@@ -168,9 +169,7 @@ struct QuickCaptureSheet: View {
                         .font(.caption)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 6)
-                        .background(draft?.exceptionKind == preset.kind ? AnchorColor.brand : AnchorColor.surfaceMuted)
-                        .foregroundStyle(draft?.exceptionKind == preset.kind ? AnchorColor.onBrand : AnchorColor.textPrimary)
-                        .clipShape(Capsule())
+                        .anchorChoiceChip(selected: draft?.exceptionKind == preset.kind)
                         .accessibilityIdentifier("capture.exception.\(preset.kind.rawValue)")
                     }
                 }

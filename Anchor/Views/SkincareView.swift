@@ -47,6 +47,14 @@ struct SkincareView: View {
         routineSteps.filter { $0.category == .skincarePM }
     }
 
+    private var highlightedMorningStepID: UUID? {
+        morningSteps.first { !store.isRoutineStepCompleteToday(stepID: $0.id) }?.id
+    }
+
+    private var highlightedEveningStepID: UUID? {
+        eveningSteps.first { !store.isRoutineStepCompleteToday(stepID: $0.id) }?.id
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -72,19 +80,23 @@ struct SkincareView: View {
 
     private var amSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            AnchorSectionLabel(title: "Morning")
+            Text("Morning")
+                .font(AnchorFont.section)
+                .foregroundStyle(AnchorColor.textSecondary)
             ForEach(morningSteps, id: \.persistentModelID) { step in
-                stepToggle(step)
+                stepToggle(step, highlighted: step.id == highlightedMorningStepID)
             }
         }
     }
 
     private var pmSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            AnchorSectionLabel(title: "Evening")
+            Text("Evening")
+                .font(AnchorFont.section)
+                .foregroundStyle(AnchorColor.textSecondary)
 
             ForEach(eveningSteps.filter { $0.key == "skincare.pm.cleanser" }, id: \.persistentModelID) { step in
-                stepToggle(step)
+                stepToggle(step, highlighted: step.id == highlightedEveningStepID)
             }
 
             VStack(alignment: .leading, spacing: 8) {
@@ -110,10 +122,15 @@ struct SkincareView: View {
             }
             .padding(12)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .anchorSurface(.raised)
+            .background(AnchorColor.surface)
+            .overlay(
+                RoundedRectangle(cornerRadius: AnchorRadius.surface, style: .continuous)
+                    .strokeBorder(AnchorColor.border, lineWidth: 1)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: AnchorRadius.surface, style: .continuous))
 
             ForEach(eveningSteps.filter { $0.key != "skincare.pm.cleanser" }, id: \.persistentModelID) { step in
-                stepToggle(step)
+                stepToggle(step, highlighted: false)
             }
 
             Toggle(
@@ -129,18 +146,18 @@ struct SkincareView: View {
             )
             .tint(AnchorColor.brand)
             .padding(12)
-            .anchorSurface(.raised)
+            .background(AnchorColor.surface)
+            .overlay(
+                RoundedRectangle(cornerRadius: AnchorRadius.surface, style: .continuous)
+                    .strokeBorder(AnchorColor.border, lineWidth: 1)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: AnchorRadius.surface, style: .continuous))
         }
     }
 
-    private func stepToggle(_ step: RoutineStep) -> some View {
+    private func stepToggle(_ step: RoutineStep, highlighted: Bool) -> some View {
         let complete = store.isRoutineStepCompleteToday(stepID: step.id)
-        return TaskCard(
-            icon: skincareIcon(for: step.title),
-            title: step.title,
-            isComplete: complete,
-            prominence: .standard
-        ) {
+        return Button {
             store.toggleRoutineStep(stepID: step.id)
             if !complete, step.category == .skincarePM, tonightLog == nil {
                 store.upsertSkincareNightLog { log in
@@ -150,7 +167,43 @@ struct SkincareView: View {
                 }
             }
             syncTodayChecklist()
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: skincareIcon(for: step.title))
+                    .font(AnchorFont.body)
+                    .foregroundStyle((highlighted && !complete) ? AnchorColor.brand : AnchorColor.textSecondary)
+                    .frame(width: 28, height: 28)
+
+                Text(step.title)
+                    .font(AnchorFont.bodyEmphasized)
+                    .foregroundStyle(AnchorColor.textPrimary)
+                    .strikethrough(complete)
+                    .multilineTextAlignment(.leading)
+
+                Spacer(minLength: 0)
+
+                Image(systemName: complete ? "checkmark.circle.fill" : "circle")
+                    .font(.title3)
+                    .foregroundStyle(complete ? AnchorColor.brand : AnchorColor.textSecondary)
+                    .accessibilityHidden(true)
+            }
+            .padding(10)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(minHeight: 44)
+            .background(AnchorColor.surface)
+            .overlay(
+                RoundedRectangle(cornerRadius: AnchorRadius.surface, style: .continuous)
+                    .strokeBorder(
+                        (highlighted && !complete) ? AnchorColor.brand : AnchorColor.border,
+                        lineWidth: 1
+                    )
+            )
+            .clipShape(RoundedRectangle(cornerRadius: AnchorRadius.surface, style: .continuous))
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel(step.title)
+        .accessibilityValue(complete ? "Complete" : "Not complete")
+        .accessibilityHint(complete ? "Marks as not done" : "Marks as done")
     }
 
     private func skincareIcon(for title: String) -> String {

@@ -2,49 +2,183 @@ import SwiftUI
 
 struct HistoryView: View {
     @Environment(LocalSwiftDataStore.self) private var store
+    @State private var range: HistoryRange = .fourWeeks
     @State private var filter: HistoryFilter = .all
 
-    private var entries: [HistoryEntry] {
-        store.fetchHistory(filter: filter)
-    }
-
     var body: some View {
+        let snapshot = store.historySnapshot(range: range, filter: filter)
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: 16) {
+                rangePicker
                 heatmap
-                filterChips
-                if entries.isEmpty {
-                    Text("Nothing logged yet.")
-                        .font(AnchorFont.subheadline)
-                        .foregroundStyle(AnchorColor.textSecondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.vertical, 24)
-                } else {
-                    LazyVStack(alignment: .leading, spacing: 8) {
-                        ForEach(entries) { entry in
-                            historyRow(entry)
-                        }
-                    }
+                if !snapshot.categorySummaries.isEmpty {
+                    summaries(snapshot)
                 }
+                if !snapshot.cadence.isEmpty {
+                    cadenceSection(snapshot)
+                }
+                if !snapshot.workoutProgression.isEmpty {
+                    workoutSection(snapshot)
+                }
+                if let schedule = snapshot.schedule {
+                    scheduleSection(schedule)
+                }
+                if !snapshot.reflections.isEmpty {
+                    reflectionsSection(snapshot)
+                }
+                filterChips
+                eventList(snapshot)
             }
-            .padding(16)
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+            .padding(.bottom, 20)
         }
         .background(AnchorScreenBackground())
         .navigationTitle("History")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(AnchorColor.background, for: .navigationBar)
+        .accessibilityIdentifier(AnchorAID.historyRoot)
+    }
+
+    private var rangePicker: some View {
+        Picker("History range", selection: $range) {
+            ForEach(HistoryRange.allCases) { option in
+                Text(option.displayName).tag(option)
+            }
+        }
+        .pickerStyle(.segmented)
+        .labelsHidden()
+        .accessibilityLabel("History range")
+        .accessibilityValue(range.displayName)
+        .accessibilityIdentifier(AnchorAID.historyRange)
     }
 
     private var heatmap: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Last 12 weeks")
-                .font(AnchorFont.title)
-                .foregroundStyle(AnchorColor.textPrimary)
-            ConsistencyHeatmap(counts: store.heatmapCounts(weeks: 12))
+        let counts = store.heatmapCounts(weeks: 12)
+        let activeDays = counts.values.filter { $0 > 0 }.count
+        return VStack(alignment: .leading, spacing: 8) {
+            AnchorSectionLabel(title: "Last 12 weeks")
+            ConsistencyHeatmap(counts: counts)
+            Text(activeDays == 1 ? "1 day with logged activity" : "\(activeDays) days with logged activity")
+                .font(AnchorFont.caption)
+                .foregroundStyle(AnchorColor.textSecondary)
         }
-        .padding(16)
+        .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .anchorSurface(.hero)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Activity in the last 12 weeks")
+        .accessibilityValue(activeDays == 1 ? "1 day with logged activity" : "\(activeDays) days with logged activity")
+        .accessibilityIdentifier(AnchorAID.historyHeatmap)
+    }
+
+    private func summaries(_ snapshot: HistoryInsightSnapshot) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            AnchorSectionLabel(title: "In this window")
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], alignment: .leading, spacing: 10) {
+                ForEach(snapshot.categorySummaries) { summary in
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("\(summary.count)")
+                            .font(AnchorFont.heading)
+                            .foregroundStyle(AnchorColor.textPrimary)
+                        Text(summary.filter.displayName)
+                            .font(AnchorFont.caption)
+                            .foregroundStyle(AnchorColor.textSecondary)
+                            .lineLimit(1)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(summary.caption)
+                }
+            }
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .anchorSurface(.raised)
+        .accessibilityIdentifier(AnchorAID.historySummaries)
+    }
+
+    private func cadenceSection(_ snapshot: HistoryInsightSnapshot) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            AnchorSectionLabel(title: "House cadence")
+            ForEach(snapshot.cadence) { item in
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(item.title)
+                        .font(AnchorFont.bodyEmphasized)
+                        .foregroundStyle(AnchorColor.textPrimary)
+                    Text(item.detail)
+                        .font(AnchorFont.caption)
+                        .foregroundStyle(AnchorColor.textSecondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityElement(children: .combine)
+            }
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .anchorSurface(.raised)
+        .accessibilityIdentifier(AnchorAID.historyCadence)
+    }
+
+    private func workoutSection(_ snapshot: HistoryInsightSnapshot) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            AnchorSectionLabel(title: "Workout progression")
+            ForEach(snapshot.workoutProgression) { item in
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(item.name)
+                        .font(AnchorFont.bodyEmphasized)
+                        .foregroundStyle(AnchorColor.textPrimary)
+                    Text(item.detail)
+                        .font(AnchorFont.caption)
+                        .foregroundStyle(AnchorColor.textSecondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityElement(children: .combine)
+            }
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .anchorSurface(.raised)
+        .accessibilityIdentifier(AnchorAID.historyWorkout)
+    }
+
+    private func scheduleSection(_ schedule: HistoryScheduleSummary) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            AnchorSectionLabel(title: "Schedule changes")
+            Text(schedule.caption)
+                .font(AnchorFont.subheadline)
+                .foregroundStyle(AnchorColor.textPrimary)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .anchorSurface(.raised)
+        .accessibilityElement(children: .combine)
+        .accessibilityIdentifier(AnchorAID.historySchedule)
+    }
+
+    private func reflectionsSection(_ snapshot: HistoryInsightSnapshot) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            AnchorSectionLabel(title: "What stands out")
+            ForEach(snapshot.reflections) { item in
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(item.title)
+                        .font(AnchorFont.subheadlineEmphasized)
+                        .foregroundStyle(AnchorColor.textPrimary)
+                    Text(item.reason)
+                        .font(AnchorFont.subheadline)
+                        .foregroundStyle(AnchorColor.textPrimary)
+                    Text(item.confidenceCopy)
+                        .font(AnchorFont.caption)
+                        .foregroundStyle(AnchorColor.textSecondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityElement(children: .combine)
+            }
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .anchorSurface(.raised)
+        .accessibilityIdentifier(AnchorAID.historyReflections)
     }
 
     private var filterChips: some View {
@@ -57,12 +191,32 @@ struct HistoryView: View {
                         Text(chip.displayName)
                             .font(AnchorFont.captionEmphasized)
                             .padding(.horizontal, 12)
-                            .padding(.vertical, 8)
-                            .background(filter == chip ? AnchorColor.brand : AnchorColor.surfaceMuted)
-                            .foregroundStyle(filter == chip ? AnchorColor.onBrand : AnchorColor.textPrimary)
-                            .clipShape(Capsule())
+                            .frame(minHeight: 44)
+                            .anchorChoiceChip(selected: filter == chip)
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel(chip.displayName)
+                    .accessibilityValue(filter == chip ? "Selected" : "Not selected")
+                    .accessibilityAddTraits(filter == chip ? [.isButton, .isSelected] : .isButton)
+                    .accessibilityIdentifier(AnchorAID.historyFilterPrefix + chip.rawValue)
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func eventList(_ snapshot: HistoryInsightSnapshot) -> some View {
+        if snapshot.entries.isEmpty {
+            Text(snapshot.emptyCopy)
+                .font(AnchorFont.subheadline)
+                .foregroundStyle(AnchorColor.textSecondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 16)
+                .accessibilityIdentifier(AnchorAID.historyEmpty)
+        } else {
+            LazyVStack(alignment: .leading, spacing: 8) {
+                ForEach(snapshot.entries) { entry in
+                    historyRow(entry)
                 }
             }
         }
@@ -99,8 +253,9 @@ private struct HistoryRowLabel: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: entry.systemImage)
-                .frame(width: 28)
-                .foregroundStyle(AnchorColor.brand)
+                .frame(width: 28, height: 28)
+                .foregroundStyle(AnchorColor.textSecondary)
+                .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 2) {
                 Text(entry.title)
                     .font(AnchorFont.subheadlineEmphasized)
@@ -109,13 +264,18 @@ private struct HistoryRowLabel: View {
                     .font(AnchorFont.caption)
                     .foregroundStyle(AnchorColor.textSecondary)
             }
-            Spacer()
+            Spacer(minLength: 0)
             Text(entry.date.formatted(.relative(presentation: .named)))
                 .font(AnchorFont.caption)
                 .foregroundStyle(AnchorColor.textSecondary)
         }
-        .padding(14)
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(minHeight: 44)
         .anchorSurface(.raised)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(entry.title), \(entry.context.displayName)")
+        .accessibilityValue("\(entry.detail), \(entry.date.formatted(.relative(presentation: .named)))")
     }
 }
 
@@ -126,14 +286,17 @@ struct ConsistencyHeatmap: View {
     private let calendar = Calendar.current
 
     var body: some View {
-        HStack(alignment: .top, spacing: 3) {
-            ForEach(0..<weeks, id: \.self) { week in
-                VStack(spacing: 3) {
-                    ForEach(0..<7, id: \.self) { weekday in
-                        let date = dateFor(week: week, weekday: weekday)
-                        RoundedRectangle(cornerRadius: 2)
-                            .fill(fill(for: date))
-                            .frame(width: 11, height: 11)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(alignment: .top, spacing: 3) {
+                ForEach(0..<weeks, id: \.self) { week in
+                    VStack(spacing: 3) {
+                        ForEach(0..<7, id: \.self) { weekday in
+                            let date = dateFor(week: week, weekday: weekday)
+                            RoundedRectangle(cornerRadius: 2)
+                                .fill(fill(for: date))
+                                .frame(width: 11, height: 11)
+                                .accessibilityHidden(true)
+                        }
                     }
                 }
             }
@@ -153,9 +316,9 @@ struct ConsistencyHeatmap: View {
         let count = counts[calendar.startOfDay(for: date)] ?? 0
         switch count {
         case 0: return AnchorColor.surfaceMuted
-        case 1: return AnchorColor.brand.opacity(0.28)
-        case 2, 3: return AnchorColor.brand.opacity(0.55)
-        default: return AnchorColor.brand.opacity(0.88)
+        case 1: return AnchorColor.border
+        case 2, 3: return AnchorColor.textSecondary.opacity(0.45)
+        default: return AnchorColor.textPrimary.opacity(0.42)
         }
     }
 }
@@ -171,18 +334,31 @@ struct WorkoutHistoryDetailView: View {
     }
 
     var body: some View {
-        List {
-            Section(session.splitDay.displayName) {
-                ForEach(sets, id: \.persistentModelID) { set in
-                    HStack {
-                        Text("\(set.exerciseName)  ·  set \(set.setNumber)")
-                        Spacer()
-                        Text("\(Int(set.weightKg)) kg × \(set.reps)")
-                            .foregroundStyle(.secondary)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 10) {
+                if sets.isEmpty {
+                    Text("No sets logged.")
+                        .font(AnchorFont.subheadline)
+                        .foregroundStyle(AnchorColor.textSecondary)
+                } else {
+                    ForEach(sets, id: \.persistentModelID) { set in
+                        HStack {
+                            Text("\(set.exerciseName)  ·  set \(set.setNumber)")
+                                .font(AnchorFont.bodyEmphasized)
+                                .foregroundStyle(AnchorColor.textPrimary)
+                            Spacer()
+                            Text("\(Int(set.weightKg)) kg × \(set.reps)")
+                                .font(AnchorFont.subheadline)
+                                .foregroundStyle(AnchorColor.textSecondary)
+                        }
+                        .padding(.vertical, 6)
+                        .accessibilityElement(children: .combine)
                     }
                 }
             }
+            .padding(16)
         }
+        .background(AnchorScreenBackground())
         .navigationTitle(session.date.formatted(date: .abbreviated, time: .omitted))
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -193,16 +369,26 @@ struct PeriodicTaskHistoryDetailView: View {
     let dates: [Date]
 
     var body: some View {
-        List {
-            if dates.isEmpty {
-                Text("No completions logged.")
-                    .foregroundStyle(.secondary)
-            } else {
-                ForEach(dates, id: \.self) { date in
-                    Text(date.formatted(date: .abbreviated, time: .shortened))
+        ScrollView {
+            VStack(alignment: .leading, spacing: 10) {
+                if dates.isEmpty {
+                    Text("No completions logged.")
+                        .font(AnchorFont.subheadline)
+                        .foregroundStyle(AnchorColor.textSecondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                } else {
+                    ForEach(dates, id: \.self) { date in
+                        Text(date.formatted(date: .abbreviated, time: .shortened))
+                            .font(AnchorFont.body)
+                            .foregroundStyle(AnchorColor.textPrimary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 8)
+                    }
                 }
             }
+            .padding(16)
         }
+        .background(AnchorScreenBackground())
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
     }

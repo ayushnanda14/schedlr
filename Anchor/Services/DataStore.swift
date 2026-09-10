@@ -1,40 +1,6 @@
 import Foundation
 import SwiftData
 
-struct HistoryEntry: Identifiable {
-    var id: UUID
-    var filter: HistoryFilter
-    var date: Date
-    var title: String
-    var detail: String
-    var systemImage: String
-    var context: HistoryEventContext
-    var workoutSessionID: UUID?
-    var periodicTaskID: UUID?
-
-    init(
-        id: UUID,
-        filter: HistoryFilter,
-        date: Date,
-        title: String,
-        detail: String,
-        systemImage: String,
-        context: HistoryEventContext = .logged,
-        workoutSessionID: UUID? = nil,
-        periodicTaskID: UUID? = nil
-    ) {
-        self.id = id
-        self.filter = filter
-        self.date = date
-        self.title = title
-        self.detail = detail
-        self.systemImage = systemImage
-        self.context = context
-        self.workoutSessionID = workoutSessionID
-        self.periodicTaskID = periodicTaskID
-    }
-}
-
 /// Local-only for now. A future `SyncedDataStore` can wrap `LocalSwiftDataStore`
 /// and push/pull using `id` / `updatedAt` / `syncStatus` without changing views.
 @MainActor
@@ -66,6 +32,7 @@ protocol DataStore: AnyObject {
     func markSessionDeload(_ session: WorkoutSession)
     func persist(_ record: any SyncableRecord)
     func fetchHistory(filter: HistoryFilter) -> [HistoryEntry]
+    func historySnapshot(range: HistoryRange, filter: HistoryFilter) -> HistoryInsightSnapshot
     func heatmapCounts(weeks: Int) -> [Date: Int]
     func workoutSession(id: UUID) -> WorkoutSession?
     func periodicTask(id: UUID) -> PeriodicTask?

@@ -2,8 +2,12 @@
 /Users/ayushnanda/Documents/projects/schedlr/AnchorTests/CaptureCoordinatorTests.swift
 /Users/ayushnanda/Documents/projects/schedlr/AnchorTests/CaptureInterpreterTests.swift
 /Users/ayushnanda/Documents/projects/schedlr/AnchorTests/CompletionUndoTests.swift
+/Users/ayushnanda/Documents/projects/schedlr/AnchorTests/HistoryInsightQueryTests.swift
 /Users/ayushnanda/Documents/projects/schedlr/AnchorTests/NotificationActionRouterTests.swift
 /Users/ayushnanda/Documents/projects/schedlr/AnchorTests/NotificationPlannerTests.swift
+/Users/ayushnanda/Documents/projects/schedlr/AnchorTests/ObservationEngineTests.swift
 /Users/ayushnanda/Documents/projects/schedlr/AnchorTests/PlannerEngineTests.swift
 /Users/ayushnanda/Documents/projects/schedlr/AnchorTests/ProposalCoordinatorTests.swift
+/Users/ayushnanda/Documents/projects/schedlr/AnchorTests/RoutineHistoryTests.swift
 /Users/ayushnanda/Documents/projects/schedlr/AnchorTests/ScheduleRepositoryTests.swift
+/Users/ayushnanda/Documents/projects/schedlr/AnchorTests/SuggestionCoordinatorTests.swift

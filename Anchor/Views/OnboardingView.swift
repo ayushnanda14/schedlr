@@ -47,7 +47,7 @@ struct OnboardingView: View {
                 }
                 .font(AnchorFont.bodyEmphasized)
                 .frame(maxWidth: .infinity, minHeight: 52)
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.bordered)
             }
             .padding(24)
             .background(AnchorScreenBackground())

@@ -28,28 +28,33 @@ struct ExerciseHistoryView: View {
                     description: Text("Logged sets for \(exercise.name) will show up here.")
                 )
             } else {
-                List(history, id: \.session.persistentModelID) { entry in
-                    VStack(alignment: .leading, spacing: 6) {
-                        HStack {
-                            Text(entry.session.date, style: .date)
-                                .font(.headline)
-                            if entry.session.isDeload {
-                                Text("Deload")
-                                    .font(.caption2)
-                                    .padding(.horizontal, 6)
-                                    .padding(.vertical, 2)
-                                    .background(Color.orange.opacity(0.18))
-                                    .clipShape(Capsule())
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 10) {
+                        ForEach(history, id: \.session.persistentModelID) { entry in
+                            VStack(alignment: .leading, spacing: 6) {
+                                HStack {
+                                    Text(entry.session.date, style: .date)
+                                        .font(AnchorFont.bodyEmphasized)
+                                        .foregroundStyle(AnchorColor.textPrimary)
+                                    if entry.session.isDeload {
+                                        StatusPill(text: "Deload", tone: .attention)
+                                    }
+                                }
+                                Text(WorkoutProgression.formattedSets(entry.sets, isRepBased: exercise.isRepBased))
+                                    .font(AnchorFont.subheadline)
+                                    .foregroundStyle(AnchorColor.textSecondary)
                             }
+                            .padding(12)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .anchorSurface(.raised)
+                            .accessibilityElement(children: .combine)
                         }
-                        Text(WorkoutProgression.formattedSets(entry.sets, isRepBased: exercise.isRepBased))
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
                     }
-                    .padding(.vertical, 4)
+                    .padding(16)
                 }
             }
         }
+        .background(AnchorScreenBackground())
         .navigationTitle(exercise.name)
         .navigationBarTitleDisplayMode(.inline)
     }
